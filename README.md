@@ -9,3 +9,4 @@ SPEAKER: **MEDRANO, Dave H.**
 ---
 
 ### PARTICIPANTS:
+- Devera. Renand D.
