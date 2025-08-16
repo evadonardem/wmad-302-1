@@ -9,3 +9,4 @@ SPEAKER: **MEDRANO, Dave H.**
 ---
 
 ### PARTICIPANTS:
+- Takeng, Yesha Karyle A. 
