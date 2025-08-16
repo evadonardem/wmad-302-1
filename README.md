@@ -9,4 +9,4 @@ SPEAKER: **MEDRANO, Dave H.**
 ---
 
 ### PARTICIPANTS:
-- Dapdapog Sylvester A.
+-  Dapdapog Sylvester A.
