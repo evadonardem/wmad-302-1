@@ -9,3 +9,4 @@ SPEAKER: **MEDRANO, Dave H.**
 ---
 
 ### PARTICIPANTS:
+-Bala-oy, Rhode B.
