@@ -9,3 +9,5 @@ SPEAKER: **MEDRANO, Dave H.**
 ---
 
 ### PARTICIPANTS:
+
+- GULLUNAN_Jemar_Brent_S.
