@@ -9,4 +9,4 @@ SPEAKER: **MEDRANO, Dave H.**
 ---
 
 ### PARTICIPANTS:
-- DAMUGO, Sebastian L.
+- Basilio, Clint Kycer C.
