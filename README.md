@@ -10,3 +10,4 @@ SPEAKER: **MEDRANO, Dave H.**
 
 ### PARTICIPANTS:
 - DAMUGO, Sebastian L.
+- CALDERON, Lorenz M.
