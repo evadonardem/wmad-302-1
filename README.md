@@ -9,4 +9,4 @@ SPEAKER: **MEDRANO, Dave H.**
 ---
 
 ### PARTICIPANTS:
-- DAMUGO, Sebastian L.
+- VISAYA, FREDDIE .
