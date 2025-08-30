@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Hello World!</a>
+    </div>
+  </div>
+  
+</nav>
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+    <label for="inputname" class="col-form-label">Name</label>
+  </div>
+  <div class="col-auto">
+    <input type="text" id="inputname" class="form-control" aria-describedby="nameHelpInline">
+  </div>
+
+  <div class="col-auto">
+    <label for="inputbirthdate" class="col-form-label">Birthdate</label>
+  </div>
+  <div class="col-auto">
+    <input type="date" id="inputbirthdate" class="form-control" aria-describedby="birthdateHelpInline">
+  </div>
+  <div class="row g-3 align-items-center">
+
+
+  </div>
+  <div class="col-auto">
+    <button type="button" class="btn btn-primary">Submit</button>
+  </div>
+</div>
+   
+    <div class="alert alert-success" role="alert">
+        Welcome to the site! <strong id ="name"></strong>.
+        Your qualified to proceed given legal age.<strong id = "age"></strong>.
+
+    </div>
+    <script>
+      document.querySelector(".btn").addEventListener("click", function() {
+          var name = document.getElementById("inputname").value;
+          var birthdate = document.getElementById("inputbirthdate").value;
+
+          
+          var birthDateObj = new Date(birthdate);
+          var currentDate = new Date();
+          var age = currentDate.getFullYear() - birthDateObj.getFullYear();
+          var m = currentDate.getMonth() - birthDateObj.getMonth();
+          if (m < 0 || (m === 0 && currentDate.getDate() < birthDateObj.getDate())) {
+              age--;
+          }
+
+          document.getElementById("name").innerText = name;
+          document.getElementById("age").innerText = age;
+      });
+    </script>
+</body>
+</html>
