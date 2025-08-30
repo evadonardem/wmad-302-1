@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hellow world. Dapdapog Sylvester</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <script>https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js</script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+    <a class="navbar-brand" href="#">Hello World. Sylvester Dapdapog</a>
+    </div>
+</nav>
+<div class="container-xs">
+    <div class="col-md-5 col-sm-12">
+    <label type="name" class="form-label">When is youre birthdate?</label>l</div>
+<div class="col-md-5 col-sm-12">
+    <Input type="date" class="form-label" id="name">
+</div>
+<hr>
+<button type="button" class="btn btn-primary form control" id="register-btn">
+<hr>
+<div class="alert alert-success" role="alert">
+    Welcome to the site! <strong id="name">
+    You are qualified to proceed given legal age <strong id="age"></strong>.
+</div>
+<script>
+document.getElementById('register-btn').addEventListener('click', function() {
+    const name = document.getElementById('nameInput').value;
+    const birthdate = new Date(document.getElementById('birthdate').value);
+    const today = new Date();
+
+    // Calculate age correctly (considering month/day)
+    let age = today.getFullYear() - birthdate.getFullYear();
+    const monthDiff = today.getMonth() - birthdate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthdate.getDate())) {
+    age--;
+    }
+
+    document.querySelector('.alert').classList.remove('alert-success', 'alert-danger');
+    document.querySelector('.alert').style.display = 'block';
+
+    document.getElementById('nameDisplay').textContent = name;
+    document.getElementById('age').textContent = age;
+
+    document.querySelector('.alert').classList.add(age >= 18 ? 'alert-success' : 'alert-danger');
+});
+
+    // Hide the alert box initially
+    document.querySelector('.alert').style.display = 'none';
+</script>
+</body>
+</html>
