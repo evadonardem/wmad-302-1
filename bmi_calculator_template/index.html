@@ -1,29 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My BMI Calculator (LastName, FirstName)</title>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
-        integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
-        integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My BMI Calculator (YourLastName, YourFirstName)</title>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
+    integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+    integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .bmi-card {
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      max-width: 450px;
+      margin: auto;
+    }
+    .bmi-title {
+      font-weight: 700;
+      color: #4a4a4a;
+    }
+    #result {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #333;
+    }
+    #category {
+      font-size: 1.1rem;
+      padding: 5px 12px;
+      border-radius: 12px;
+      display: inline-block;
+    }
+  </style>
 </head>
 <body>
-    <!-- Create a page for the BMI Calculator using Bootstrap and some FontAwesome Icons -->
-    <script src="scripts/bmi.js"></script>
+
+  <div class="container">
+    <div class="card bmi-card p-4 bg-white">
+      <h2 class="text-center mb-4 bmi-title">
+        <i class="fa-solid fa-heart-pulse text-danger"></i> BMI Calculator
+      </h2>
+
+      <form id="bmiForm">
+        <div class="mb-3">
+          <label for="weight" class="form-label">
+            <i class="fa-solid fa-weight-scale"></i> Weight (lbs)
+          </label>
+          <input type="number" class="form-control" id="weight" placeholder="Enter weight in pounds" required>
+        </div>
+        <div class="mb-3">
+          <label for="height" class="form-label">
+            <i class="fa-solid fa-ruler-vertical"></i> Height (m)
+          </label>
+          <input type="number" step="0.01" class="form-control" id="height" placeholder="Enter height in meters" required>
+        </div>
+
+        <!-- Interactive Button Group -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-3">
+          <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-calculator"></i> Calculate
+          </button>
+          <button type="button" id="resetBtn" class="btn btn-outline-danger">
+            <i class="fa-solid fa-rotate-left"></i> Reset
+          </button>
+          <button type="button" id="sampleBtn" class="btn btn-outline-secondary">
+            <i class="fa-solid fa-bolt"></i> Sample Data
+          </button>
+        </div>
+      </form>
+
+      <div class="mt-4 text-center">
+        <h4 id="result"></h4>
+        <span id="category"></span>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts/bmi.js"></script>
 </body>
 </html>
