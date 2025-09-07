@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My BMI Calculator (LastName, FirstName)</title>
+    <title>My BMI Calculator (Ebes, Peniel Craux)</title>
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
         integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
@@ -21,9 +21,66 @@
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous"
         referrerpolicy="no-referrer" />
+    <link 
+        rel="stylesheet" 
+        href="style.css">
+    <link 
+        rel="preconnect" 
+        href="https://fonts.googleapis.com">
+    <link 
+        rel="preconnect" 
+        href="https://fonts.gstatic.com" 
+        crossorigin>
+    <link 
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Josefin+Sans:wght@200&family=Mea+Culpa&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:wght@200&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" 
+        rel="stylesheet">
 </head>
 <body>
     <!-- Create a page for the BMI Calculator using Bootstrap and some FontAwesome Icons -->
+    <div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+        <section class="container border border-dark border-2 bg-white p-4 w-25 rounded-2">
+            <div class="para">
+                    <p>Hello There!</p>
+                </div>
+                <div class="calculator d-flex justify-content-center align-items-center mb-4">
+                    <i class="fa-solid fa-calculator fa-4x" style="color: #FFD43B;"></i>
+                </div>
+                <div class="bmi">
+                    <h2>Body Mass Index (BMI) Calculator</h2>
+                </div>
+                <div class="para">
+                    <p>Body mass index (BMI) is a measure of body fat based on height and weight.</p>
+            </div>
+            <div class="mb-3">
+                <label for="weightInput" class="form-label">Input Your Weight</label>
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="fa-solid fa-weight-scale fa-lg" style="color: #FFD43B;"></i>
+                    </span>
+                <input type="numbers" class="form-control" id="weightInput" placeholder="Enter weight in kg">
+            </div>
+            </div>
+            <div class="mb-3">
+                <label for="heightInput" class="form-label">Input Your Height</label>
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="fa-solid fa-person fa-lg" style="color: #FFD43B;"></i>
+                    </span>
+                    <input type="numbers" class="form-control" id="heightInput" placeholder="Enter height in m">
+                </div>
+            </div>
+            <div class="enter d-flex justify-content-center align-items-center">
+                <button type="submit" class="btn rounded-3 m-3" onclick="calculateBmi()">Submit</button>
+                <button class="btn rounded-3 m-3" onclick="clearInputs()">Clear</button>
+            </div>
+            <div id="output">
+                <p></p>
+            </div>
+            <div id="output2">
+                <p></p>
+            </div>
+        </section>
+    </div>
     <script src="scripts/bmi.js"></script>
 </body>
 </html>
