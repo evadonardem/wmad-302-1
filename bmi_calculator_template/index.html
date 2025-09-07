@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My BMI Calculator (LastName, FirstName)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>My BMI Calculator - Calderon, Lorenz</title>
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
         integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
@@ -21,9 +21,99 @@
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous"
         referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
+
+<header></header>
 <body>
     <!-- Create a page for the BMI Calculator using Bootstrap and some FontAwesome Icons -->
+    <br />
+    <div class="container text-center">
+    <div class="row">
+        <div class="col">
+            <img id="duck-gif" src="./assets/duck.gif" alt="duck-gif">
+        </div>
+        <div class="col-6">
+            <p id="webTitle">BMI CALCULATOR</p>
+        </div>
+        <div class="col">
+            <i class="fa-solid fa-calculator fa-2xl" style="color: #0A2647;"></i>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+        <p style="background-color: #E9C46A;">Underweight</p>
+        </div>
+        <div class="col-5">
+        <div class="input-group">
+                <!-- User enters their Height && Weight -->
+                <span class="input-group-text" id="visible-addon">Height:</span>
+                <input id="height" type="text" class="form-control" placeholder="(meters)"autocomplete="off">
+            </div>
+            <div class="input-group">
+                <span class="input-group-text" id="visible-addon">Weight:</span>
+                <input id="weight" type="text" class="form-control" placeholder="(kilos)" autocomplete="off">
+            </div>
+        </div>
+        <div class="col">
+        <p style="background-color: #219C90;">Normal</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+        <p style="background-color: #F4A261;">Overweight</p>
+        </div>
+        <div class="col-6">
+            <br />
+            <br />
+            <button id="calculate-btn">Calculate</button>
+        </div>
+        <div class="col">
+        <p style="background-color: #E76F51;">Obese</p>
+        </div>
+    </div>
+
+    <br />
+    <hr />
+    <div id="loading">
+        <img id="bopcat" src="./assets/bopcat.gif" alt="bopcat">
+        <p id="calculatingText"><i class="fa-jelly fa-regular fa-hourglass"></i>Calculating...<i class="fa-jelly fa-regular fa-hourglass"></i></p>
+    </div>
+    </div>
+    
+    <div class="alert alert-obese" role="alert">
+        <p class="bmiResult"></p>
+        And is considered <a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" class="alert-link" target="_blank">Obese</a>. Give it a click if you like.
+    </div>
+    <div class="alert alert-overweight" role="alert">
+        <p class="bmiResult"></p>
+        And is considered <a href="https://www.cdc.gov/obesity/basics/consequences.html" class="alert-link" target="_blank">Overweight</a>. Give it a click if you like.
+    </div>
+    <div class="alert alert-normal" role="alert">
+        <p class="bmiResult"></p>
+        And is considered <a href="https://www.who.int/europe/news-room/fact-sheets/item/everyday-actions-for-better-health-who-recommendations" class="alert-link" target="_blank">Normal</a>. Give it a click if you like.
+    </div>
+    <div class="alert alert-underweight" role="alert">
+        <p class="bmiResult"></p>
+        And is considered <a href="https://www.medicalnewstoday.com/articles/321612" class="alert-link" target="_blank">Underweight</a>. Give it a click if you like.
+    </div>
+    <div class="alert alert-invalid" role="alert">
+        What are you entering?
+    </div>
+    
     <script src="scripts/bmi.js"></script>
 </body>
+<footer>
+    
+    <div class="container text-center">
+    <hr />
+    <img id="cat-gif" src="./assets/cat.gif" alt="cat-gif"> <br />
+    by Calderon, Lorenz M. 
+    </div>
+</footer>
 </html>
