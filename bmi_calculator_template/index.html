@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My BMI Calculator (LastName, FirstName)</title>
+    <title>My BMI Calculator (Rosalejos, Sean Earl)</title>
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
         integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
@@ -21,9 +21,304 @@
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous"
         referrerpolicy="no-referrer" />
+    <link rel = "stylesheet" href = "notstyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <style>
+        @media (max-width: 500px) {
+            body {
+                background-color: rgba(8,5,26,255);
+            }
+
+            h1 {
+                position: relative;
+                color: white;
+                font-size: 2rem;
+                font-family: "Poppins", sans-serif;
+                font-weight: 700;
+                text-align: left;
+                letter-spacing: -1px;
+                line-height: 39px;
+                left: 20px;
+            }
+
+            h2 {
+                position: relative;
+                color: white;
+                font-size: 1rem;
+                font-family: "Poppins", sans-serif;
+                font-weight: 700;
+                text-align: left;
+                top: 10px;
+                width: auto;
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+
+            p {
+                color: white;
+                font-size: 1em;
+                font-family: "Poppins", sans-serif;
+                font-weight: 1;
+            }
+
+            #txt {
+                position: relative;
+                color: white;
+                font-size: 1em;
+                font-family: "Poppins", sans-serif;
+                font-weight: 1px;
+                width: auto;
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+
+            #name {
+                font-size: 1.5em;
+                position: relative;
+                left: 30px;
+                margin-top: -3px;
+            }
+        
+            #date {
+                font-size: 1.5em;
+                position: relative;
+                left: 30px;
+                margin-top: -20px;
+                margin-bottom: -20px;
+            }
+
+            #subject {
+                position: relative;
+                text-align: center;
+                margin-top: -3px;
+                margin-bottom: -22px;
+            }
+
+            #gradient {
+                background: linear-gradient(to right, #c8ff00,#ffc400, #ff9900, #ffc400, #c8ff00);
+                background-size: 200%;
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                animation: animateGradient 3s linear infinite;
+            }
+
+            #outline {
+                color: transparent;
+                -webkit-text-stroke-width: 1px;
+                -webkit-text-stroke-color: white;
+            }
+
+            #line {
+                margin-left: -10px;
+                height: 3px; 
+                border: none; 
+                width: 110%;
+                background: linear-gradient(to right, #c8ff00,#ffc400, #ff9900, #ffc400, #c8ff00);
+                background-size: 200%;
+                animation: animateGradient 0.5s linear infinite;
+            }
+
+            .container {
+                background-color: rgba(255, 255, 255, 0.075);
+                height: auto;
+                width: auto;
+                margin-left: 20px;
+                margin-right: 20px;
+                padding-bottom: 1px;
+                border-radius: 15px;
+            }
+
+            @keyframes animateGradient {
+                to {
+                background-position: 200%;
+                }
+            }
+        }
+
+        @media (min-width: 501px) {
+            body {
+            background-color: rgba(8,5,26,255);
+            }
+
+            h1 {
+                position: relative;
+                color: white;
+                font-size: 5rem;
+                font-family: "Poppins", sans-serif;
+                font-weight: 700;
+                text-align: left;
+                letter-spacing: -5px;
+                line-height: 62px;
+                left: 20px;
+            }
+
+            h2 {
+                position: relative;
+                color: white;
+                font-size: 1.5rem;
+                font-family: "Poppins", sans-serif;
+                font-weight: 700;
+                text-align: left;
+                top: 10px;
+                left: 20px;
+            }
+
+            p {
+                color: white;
+                font-size: 1em;
+                font-family: "Poppins", sans-serif;
+                font-weight: 1;
+            }
+
+            #txt {
+                position: relative;
+                color: white;
+                font-size: 1em;
+                font-family: "Poppins", sans-serif;
+                font-weight: 1px;
+                width: auto;
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+
+            #name {
+                position: absolute;
+                left: 30px;
+                margin-top: -3px
+            }
+        
+            #date {
+                position: absolute;
+                right: 30px;
+                margin-top: -3px;
+            }
+
+            #subject {
+                position: relative;
+                text-align: center;
+                margin-top: -3px;
+                margin-bottom: -22px;
+            }
+
+            #gradient {
+                background: linear-gradient(to right, #c8ff00,#ffc400, #ff9900, #ffc400, #c8ff00);
+                background-size: 200%;
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                animation: animateGradient 3s linear infinite;
+            }
+
+            #outline {
+                color: transparent;
+                -webkit-text-stroke-width: 2px;
+                -webkit-text-stroke-color: white;
+            }
+
+            #line {
+                margin-left: -10px;
+                height: 3px; 
+                border: none; 
+                width: 110%;
+                background: linear-gradient(to right, #c8ff00,#ffc400, #ff9900, #ffc400, #c8ff00);
+                background-size: 200%;
+                animation: animateGradient 0.5s linear infinite;
+            }
+
+           .gradient-btn {
+                font-family: "Poppins", sans-serif;
+                font-weight: 700;
+                font-size: 1.2rem;
+                padding: 10px 25px;
+                border-radius: 15px;
+                text-transform: uppercase;
+                cursor: pointer;
+                transition: 0.3s ease-in-out;
+                border: 3px solid transparent;
+                background: 
+                    linear-gradient(rgba(8,5,26,1), rgba(8,5,26,1)) padding-box,
+                    linear-gradient(to right, #c8ff00,#ffc400,#ff9900,#ffc400,#c8ff00) border-box;
+                color: white;
+            }
+
+            .gradient-btn:hover {
+                background: linear-gradient(to right, #c8ff00,#ffc400,#ff9900,#ffc400,#c8ff00);
+                color: #08051a; /* solid fill on hover */
+                -webkit-text-stroke: 0;
+                box-shadow: 0 0 15px rgba(255,200,0,0.6);
+            }
+
+            .container {
+                background-color: rgba(255, 255, 255, 0.075);
+                height: auto;
+                width: auto;
+                margin-left: 20px;
+                margin-right: 20px;
+                padding-bottom: 1px;
+                border-radius: 15px;
+            }
+
+            .container .form-control {
+                max-width: 95%;  
+                margin: 0 auto;  
+                display: block; 
+                border-radius: 10px;
+            }
+
+            .underweight { color: yellow; }
+            .normal { color: limegreen; }
+            .overweight { color: orange; }
+            .obese { color: red; }
+
+        @keyframes animateGradient {
+                to {
+                background-position: 200%;
+                }
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Create a page for the BMI Calculator using Bootstrap and some FontAwesome Icons -->
+    <div class = "header">
+        <br>
+        <hr id = "line">
+        <p id = "name"> Rosalejos, Sean Earl A. </p>
+        <p id = "date"> 09 / 08 / 25 </p>
+        <br>
+        <hr id = "line">
+    </div>
+    <div class = "title">
+        <h1> BODY MASS <span id = "outline"> INDEX </span><br> <span id = "gradient"> CALCULATOR </span> </h1>
+        <br>
+    </div>
+    <div class="container">
+        <h2><span id="gradient"> ENTER YOUR HEIGHT </span> <i class="fa-solid fa-ruler" style="color: #ffffff;"></i> </h2> 
+        <p id="txt"> In meters </p>
+        <input type="number" id="height" class="form-control mx-3 mb-3" placeholder="for example: 1.7" step="0.01">
+    </div>
+    <br>
+    <div class="container">
+        <h2><span id="gradient"> ENTER YOUR WEIGHT </span> <i class="fa-solid fa-weight-hanging" style="color: #ffffff;"></i> </h2>
+        <p id="txt"> In Kilograms </p>
+        <input type="number" id="weight" class="form-control mx-3 mb-3" placeholder="for example: 69" step="0.1">
+    </div>
+    <br>
+    <div class="container text-center p-3">
+        <button id="calcBtn" class="gradient-btn mt-2">CALCULATE</button>
+        <p id="result" class="mt-3 text-white fw-bold"></p>
+    </div>
+    <br>
+    <div class = "footer">
+        <br>
+        <hr id = "line">
+        <p id = "subject"> Mobile Systems & Technologies / WMAD-302-1 </p>
+        <br>
+        <hr id = "line">
+        <br>
+    </div>
     <script src="scripts/bmi.js"></script>
 </body>
-</html>
+</html> 
