@@ -1,29 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My BMI Calculator (LastName, FirstName)</title>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
-        integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
-        integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
-</head>
-<body>
-    <!-- Create a page for the BMI Calculator using Bootstrap and some FontAwesome Icons -->
-    <script src="scripts/bmi.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>BMI Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background: #0d1b2a;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+      }
+      .rain {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 1;
+      }
+      .drop {
+        position: absolute;
+        width: 2px;
+        height: 15px;
+        background: rgba(0, 153, 255, 0.8);
+        animation: fall linear infinite;
+      }
+      @keyframes fall {
+        0% {
+          transform: translateY(-100%);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh);
+          opacity: 0.5;
+        }
+      }
+      .card {
+        max-width: 400px;
+        width: 100%;
+        z-index: 2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="rain"></div>
+
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <h3 class="card-title text-center mb-4">
+            <i class="fas fa-calculator me-2"></i>BMI Calculator
+          </h3>
+          <form id="bmiForm">
+            <div class="mb-3">
+              <label for="height" class="form-label"><i class="fas fa-ruler-vertical me-1"></i>Height (in cm)</label>
+              <input type="number" class="form-control" id="height" required />
+            </div>
+            <div class="mb-3">
+              <label for="weight" class="form-label"><i class="fas fa-weight me-1"></i>Weight (in kg)</label>
+              <input type="number" class="form-control" id="weight" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">
+              <i class="fas fa-play me-1"></i>Calculate BMI
+            </button>
+          </form>
+          <div id="result" class="mt-4 text-center"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Create rain effect
+        const rainContainer = document.querySelector('.rain');
+        for (let i = 0; i < 100; i++) {
+          const drop = document.createElement('div');
+          drop.classList.add('drop');
+          drop.style.left = Math.random() * window.innerWidth + 'px';
+          drop.style.animationDuration = (0.5 + Math.random() * 1.5) + 's';
+          drop.style.animationDelay = Math.random() * 5 + 's';
+          rainContainer.appendChild(drop);
+        }
+
+        // BMI Calculator
+        const form = document.getElementById('bmiForm');
+        const result = document.getElementById('result');
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          const height = parseFloat(document.getElementById('height').value) / 100;
+          const weight = parseFloat(document.getElementById('weight').value);
+
+          if (height > 0 && weight > 0) {
+            const bmi = (weight / (height * height)).toFixed(2);
+            let category = '';
+
+            if (bmi < 18.5) {
+              category = 'Underweight';
+            } else if (bmi < 24.9) {
+              category = 'Normal weight';
+            } else if (bmi < 29.9) {
+              category = 'Overweight';
+            } else {
+              category = 'Obese';
+            }
+
+            result.innerHTML = `
+              <h4><i class="fas fa-heartbeat text-danger me-2"></i>Your BMI is: <span class="text-primary">${bmi}</span></h4>
+              <p class="fw-bold">Category: <span class="text-success">${category}</span></p>
+            `;
+          } else {
+            result.innerHTML = `
+              <div class="alert alert-danger w-100 text-center">
+                <i class="fas fa-exclamation-triangle me-2"></i>Please enter valid height and weight.
+              </div>
+            `;
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
