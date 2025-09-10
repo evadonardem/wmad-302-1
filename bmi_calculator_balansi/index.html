@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator (Balansi)</title>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
+        integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+        integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .bmi-card {
+            background: #fff;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+            padding: 2.5rem 2rem 2rem 2rem;
+            max-width: 370px;
+            width: 100%;
+        }
+        .bmi-title {
+            font-weight: 600;
+            font-size: 1.7rem;
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+        .bmi-icon {
+            color: #007aff;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .form-control {
+            border-radius: 1rem;
+            font-size: 1.1rem;
+            padding: 0.75rem 1rem;
+        }
+        .bmi-btn {
+            background: linear-gradient(90deg, #007aff 0%, #00c6fb 100%);
+            color: #fff;
+            border: none;
+            border-radius: 1rem;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 0.75rem 1.5rem;
+            box-shadow: 0 2px 8px 0 rgba(0,122,255,0.08);
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .bmi-btn:hover, .bmi-btn:focus {
+            background: linear-gradient(90deg, #005ecb 0%, #009ecb 100%);
+            box-shadow: 0 4px 16px 0 rgba(0,122,255,0.13);
+        }
+        .bmi-result {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            border-radius: 1rem;
+            background: #f1f3f6;
+            text-align: center;
+            min-height: 70px;
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: #222;
+        }
+        @media (max-width: 480px) {
+            .bmi-card {
+                padding: 1.5rem 0.5rem 1.5rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="bmi-card mx-auto">
+            <div class="text-center">
+                <span class="bmi-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </span>
+                <div class="bmi-title">BMI Calculator</div>
+                <div class="mb-4 text-secondary" style="font-size:1rem;">
+                    <i class="fas fa-weight-scale"></i> Enter your weight and height
+                </div>
+            </div>
+            <form id="bmiForm" autocomplete="off">
+                <div class="mb-3">
+                    <label for="weight" class="form-label">
+                        <i class="fas fa-weight-hanging me-1"></i> Weight (kg)
+                    </label>
+                    <input type="number" min="1" step="any" class="form-control" id="weight" placeholder="e.g. 70" required>
+                </div>
+                <div class="mb-4">
+                    <label for="height" class="form-label">
+                        <i class="fas fa-ruler-vertical me-1"></i> Height (m)
+                    </label>
+                    <input type="number" min="0.5" step="any" class="form-control" id="height" placeholder="e.g. 1.75" required>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="bmi-btn">
+                        <i class="fas fa-calculator me-2"></i>Calculate BMI
+                    </button>
+                </div>
+            </form>
+            <div id="bmiResult" class="bmi-result mt-3"></div>
+        </div>
+    </main>
+    <script src="scripts/bmi.js"></script>
+</body>
+</html>
