@@ -3,27 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My BMI Calculator (LastName, FirstName)</title>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
-        integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
+    <title>BMI Calculator</title>
+    
+    <!-- Bootstrap CSS -->
     <link
         rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
-        integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
         crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+    />
+
+    <!-- Font Awesome -->
     <link
         rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+    />
+
+    <style>
+        body {
+            background-color: #1a0033;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .calculator-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 20px;
+            background: rgba(40, 0, 80, 0.9);
+            box-shadow: 0 0 25px #a200ff;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        .form-range::-webkit-slider-thumb {
+            background: #ff00ff;
+        }
+
+        .form-range::-moz-range-thumb {
+            background: #ff00ff;
+        }
+
+        .bmi-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px #00ffff;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 15px #ff00ff;
+        }
+    </style>
 </head>
 <body>
-    <!-- Create a page for the BMI Calculator using Bootstrap and some FontAwesome Icons -->
-    <script src="scripts/bmi.js"></script>
+    <div class="container calculator-container text-center">
+        <h2 class="mb-4">BMI Calculator</h2>
+
+        <!-- Height input -->
+        <div class="mb-4">
+            <label for="height" class="form-label">Height (cm)</label>
+            <input type="range" class="form-range" min="100" max="220" id="height" value="170" oninput="updateValues()">
+            <div><span id="heightValue">170</span> cm</div>
+        </div>
+
+        <!-- Weight input -->
+        <div class="mb-4">
+            <label for="weight" class="form-label">Weight (kg)</label>
+            <input type="range" class="form-range" min="30" max="200" id="weight" value="70" oninput="updateValues()">
+            <div><span id="weightValue">70</span> kg</div>
+        </div>
+
+        <!-- Result -->
+        <div class="result-box">
+            <div id="bmiIcon" class="bmi-icon">
+                <i class="fa-solid fa-dumbbell"></i>
+            </div>
+            <h3 id="bmiResult">BMI: 24.2</h3>
+            <p id="bmiCategory">Normal</p>
+        </div>
+    </div>
+
+    <script>
+        function updateValues() {
+            const height = document.getElementById('height').value;
+            const weight = document.getElementById('weight').value;
+
+            document.getElementById('heightValue').innerText = height;
+            document.getElementById('weightValue').innerText = weight;
+
+            const bmi = (weight / ((height / 100) ** 2)).toFixed(1);
+            document.getElementById('bmiResult').innerText = `BMI: ${bmi}`;
+
+            let category = "";
+            let iconHtml = "";
+
+            if (bmi < 18.5) {
+                category = "Thin";
+                iconHtml = '<i class="fa-solid fa-child-reaching" style="color:#00ffff;"></i>';
+            } else if (bmi < 25) {
+                category = "Normal";
+                iconHtml = '<i class="fa-solid fa-dumbbell" style="color:#39ff14;"></i>';
+            } else if (bmi < 30) {
+                category = "Overweight";
+                iconHtml = '<i class="fa-solid fa-weight-scale" style="color:#ffea00;"></i>';
+            } else {
+                category = "Obese";
+                iconHtml = '<i class="fa-solid fa-weight-hanging" style="color:#ff3131;"></i>';
+            }
+
+            document.getElementById('bmiCategory').innerText = category;
+            document.getElementById('bmiIcon').innerHTML = iconHtml;
+        }
+
+        // Initialize on load
+        updateValues();
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
 </html>
