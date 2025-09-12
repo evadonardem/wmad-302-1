@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello! world. Jaquidel Dulnuan</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Hello! World. Jaquidel Dulnuan</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-5 col-sm-12">
+                 <label for="nameInput" class="form-label">What is your name?</label>
+            </div>
+
+            <div class="col-md-7 col-sm-12">
+                <input type="text" class="form-control" id="nameInput">
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-md-5 col-sm-12">
+                 <label for="birthdate" class="form-label">When is your birthdate?</label>
+            </div>
+
+            <div class="col-md-7 col-sm-12">
+                <input type="date" class="form-control" id="birthdate">
+            </div>
+
+        </div>
+
+        <hr>
+
+        <button type="button" class="btn btn-primary form-control" id="register-btn">Register</button>
+
+        <hr>
+
+        <div class="alert alert-success" role="alert">
+            Welcome to the site! <strong id="nameDisplay"></strong>.
+            You are qualified to proceed given legal age <strong id="age"></strong>.
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('register-btn').addEventListener('click', function() {
+            const name = document.getElementById('nameInput').value;
+            const birthdate = new Date(document.getElementById('birthdate').value);
+            const today = new Date();
+
+            // Calculate age correctly (considering month/day)
+            let age = today.getFullYear() - birthdate.getFullYear();
+            const monthDiff = today.getMonth() - birthdate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthdate.getDate())) {
+                age--;
+            }
+
+            document.querySelector('.alert').classList.remove('alert-success', 'alert-danger');
+            document.querySelector('.alert').style.display = 'block';
+
+            document.getElementById('nameDisplay').textContent = name;
+            document.getElementById('age').textContent = age;
+
+            document.querySelector('.alert').classList.add(age >= 18 ? 'alert-success' : 'alert-danger');
+        });
+
+        // Hide the alert box initially
+        document.querySelector('.alert').style.display = 'none';
+    </script>
+
+</body>
+
+</html>
