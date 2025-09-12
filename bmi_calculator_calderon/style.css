@@ -1,0 +1,98 @@
+body{
+    background-color: #b4d9ec;
+}
+
+header{
+    background-color: #0A2647;
+    height: 70px;
+}
+
+.input-group-text {
+    width: 80px;
+    background-color: #99DDCC;
+    font-family: VT323;
+    font-size: 20px;
+}
+
+.form-control {
+    background-color: #F6F6F6;
+}
+
+p{
+    font-family: VT323;
+    font-weight: 500;
+}
+
+button{
+    font-family: VT323;
+    font-weight: 500;
+    background-color: #F6F6F6;
+    border-radius: 4px;
+    box-shadow: 0px 2px #222222;
+    border: none;
+    width: 120px;
+    height: 25px;
+}
+
+#webTitle{
+    font-size: 95px;
+    font-family: VT323;
+    font-weight: 500;
+    text-shadow: 0px 3px #F6F6F6;
+}
+
+#duck-gif{
+    width: 50%;
+}
+
+#bopcat{
+    width: 10%;
+}
+
+#cat-gif{
+    width: 10%;
+}
+
+#calculatingText{
+    font-family: VT323;
+    font-weight: bold;
+}
+
+.fa-calculator{
+    margin-top: 72px;
+    margin-right: 36px;
+}
+
+.alert-obese {
+    text-align: center;
+    background-color: #E76F51
+}
+
+.alert-overweight {
+    text-align: center;
+    background-color: #F4A261;
+}
+
+.alert-normal {
+    text-align: center;
+    background-color: #219C90;
+}
+
+.alert-underweight {
+    text-align: center;
+    background-color: #E9C46A;
+}
+
+.alert-invalid {
+    font-family: VT323;
+    font-size: 40px;
+    color: #111111;
+    text-align: center;
+    background-color: #910000;
+}
+
+footer{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: lighter;
+}
+
