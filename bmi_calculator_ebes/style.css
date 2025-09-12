@@ -1,0 +1,48 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: url(images/background.jpg);
+    background-size: cover;
+    background-position: center;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+}
+.container{
+    box-shadow: -6px -6px 0 rgb(139, 119, 4);
+}
+section{
+    height: 83%;
+}
+.hello{
+    font-weight: 500;
+    text-align: center;
+    color: rgb(63, 55, 7);
+}
+.form-label{
+    color: rgb(63, 55, 7);
+}
+.bmi{
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: rgb(63, 55, 7);
+}
+.para{
+    text-align: center;
+    color: rgb(63, 55, 7);
+}
+.btn{
+    color: black;
+    background-color: #FFD43B;
+}
+.input-group-text, .form-control, .btn{
+    border-color: rgb(139, 119, 4);
+}
+#output, #output2{
+    text-align: center;
+    margin-top: 15px;
+    color: rgb(63, 55, 7);
+}
