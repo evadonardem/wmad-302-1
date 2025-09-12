@@ -4,6 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My BMI Calculator (Rivera,Bhenny Benlor)</title>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
+        integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+        integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
     <title>My BMI Calculator (Rivera, Bhenny Benlor)</title>
 
     <!-- Bootstrap CSS -->
@@ -16,7 +34,7 @@
     <!-- Custom Styles -->
     <style>
         /* Glassmorphism Card */
-        
+
         .glass-card {
             background: rgba(255, 255, 255, 0.2);
             border-radius: 20px;
@@ -26,32 +44,32 @@
             width: 350px;
             z-index: 2;
         }
-        
+
         .glass-input {
             background: rgba(255, 255, 255, 0.4);
             border: none;
             border-radius: 10px;
         }
-        
+
         .futuristic-btn {
             background: linear-gradient(135deg, #4facfe, #00f2fe);
             border: none;
             border-radius: 12px;
             transition: transform 0.2s ease-in-out;
         }
-        
+
         .futuristic-btn:hover {
             transform: scale(1.05);
         }
         /* Animated Background */
-        
+
         .bg-gradient {
             background: linear-gradient(270deg, #e0f7fa, #f1f8ff, #ffffff);
             background-size: 600% 600%;
             animation: gradientMove 15s ease infinite;
             z-index: 0;
         }
-        
+
         @keyframes gradientMove {
             0% {
                 background-position: 0% 50%;
@@ -64,11 +82,11 @@
             }
         }
         /* Result Animation */
-        
+
         .animated-result {
             animation: fadeIn 1s ease-in-out;
         }
-        
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -79,6 +97,9 @@
         }
     </style>
 </head>
+<body>
+    <!-- Create a page for the BMI Calculator using Bootstrap and some FontAwesome Icons -->
+    <script src="scripts/bmi.js"></script>
 
 <body class="d-flex justify-content-center align-items-center vh-100">
 
