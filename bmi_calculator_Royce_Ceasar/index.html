@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My BMI Calculator (LastName, FirstName)</title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+    integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <!-- Bootstrap JS -->
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
+    integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    defer
+  ></script>
+
+  <!-- Font -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <script src="scripts/bmi.js" defer></script>
+
+  <style>
+    #result {
+      font-weight: bold;
+      font-size: 1.25rem;
+      padding-top: 1rem;
+    }
+    .underweight {
+      color: #0d6efd; 
+    }
+    .normal {
+      color: #198754; 
+    }
+    .overweight {
+      color: #ffc107; 
+    }
+    .obese {
+      color: #dc3545; 
+    }
+  </style>
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100">
+  <div class="container">
+    <h1 class="text-center mb-4">
+        <i class="fa-solid fa-calculator fa-shake"></i> BMI Calculator
+      </h1>
+      
+      <div class="card p-4 mx-auto" style="max-width: 400px;">
+        <label for="weight" class="form-label">
+          <i class="fa-solid fa-dumbbell fa-bounce"></i> Weight (KG)
+        </label>
+        <input
+          type="number"
+          class="form-control"
+          id="weight"
+          placeholder="Enter your weight in kilograms"
+          min="1"
+          step="any"
+        />
+      </div>
+      
+      <div class="card p-4 mx-auto" style="max-width: 400px;">
+        <label for="height" class="form-label">
+          <i class="fa-solid fa-arrows-up-down fa-shake"></i> Height (CM)
+        </label>
+        <input
+          type="number"
+          class="form-control"
+          id="height"
+          placeholder="Enter your height in centimeters"
+          min="1"
+          step="any"
+        />
+      </div>
+      
+      <div class="card p-4 mx-auto border-0 shadow-0" style="max-width: 400px;">
+        <button
+          onclick="calculateBMI()"
+          class="btn btn-primary w-100"
+          type="button"
+        >
+          Calculate
+        </button>
+        <div id="result" class="mt-4 text-center"></div>
+      </div>
+      <div id="result" class="mt-4 text-center"></div>
+    </div>
+  </div>
+</body>
+</html>
