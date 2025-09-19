@@ -1,29 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My BMI Calculator (LastName, FirstName)</title>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
+    <title>My BINGO Game (LastName, FirstName)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
         integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
         integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
     <!-- Create a page for the bingo game using Bootstrap and some FontAwesome Icons -->
+
+    <div class="container">
+        <div class="form-floating mt-3 mb-3">
+            <input type="number" class="form-control" id="numberOfCards">
+            <label for="numberOfCards">Number of Cards</label>
+        </div>
+
+        <div id="cardsPlaceholder">
+
+        </div>
+
+        <!-- Bingo Card Template -->
+        <table class="table table-sm table-bordered table-striped table-striped-columns">
+            <thead>
+                <tr>
+                    <th class="text-center">B</th>
+                    <th class="text-center">I</th>
+                    <th class="text-center">N</th>
+                    <th class="text-center">G</th>
+                    <th class="text-center">O</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                </tr>
+                <tr>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                </tr>
+                <tr>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                    <td class="text-center">FREE</td>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                </tr>
+                <tr>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                </tr>
+                <tr>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                    <td class="text-center">X</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <script src="scripts/bingo.js"></script>
 </body>
+
 </html>
