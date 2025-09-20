@@ -14,16 +14,11 @@ class BingoMachine {
     
     #initBalls() {
         this.#balls = [];
-        
-        /**
-         * Initialize bingo ball instances from 1 to 75.
-         * Breakdown:
-         *     B - 1 to 15
-         *     I - 16 to 30
-         *     N - 31 to 45
-         *     G - 46 to 60
-         *     O - 61 to 75
-         */
+        for (let i = 1; i <= 15; i++) this.#balls.push(new BingoBall('B', i));
+        for (let i = 16; i <= 30; i++) this.#balls.push(new BingoBall('I', i));
+        for (let i = 31; i <= 45; i++) this.#balls.push(new BingoBall('N', i));
+        for (let i = 46; i <= 60; i++) this.#balls.push(new BingoBall('G', i));
+        for (let i = 61; i <= 75; i++) this.#balls.push(new BingoBall('O', i));
     }
 
     isEmpty() {
@@ -73,22 +68,20 @@ class BingoCard {
             [4, _.sampleSize(BingoCard.#cellValueLookup.get('O'), 5)],
         ]);
 
-        /**
-         * Complete this loop condition block to complete
-         * random BINGO card generator.
-         */
         this.#cells = [];
         for (let i = 0; i < 5; i++) {
             this.#cells[i] = [];
             for (let j = 0; j < 5; j++) {
-                this.#cells[i].push({
-                    value: "&nbsp;",
-                    isMarked: false
-                });
+                let value = randomCellValues.get(j)[i];
+                // Center cell is free
+                if (i === 2 && j === 2) {
+                    this.#cells[i].push({ value: "FREE", isMarked: true });
+                } else {
+                    this.#cells[i].push({ value: value, isMarked: false });
+                }
             }
         }
     }
-
     get rows() {
         return this.#cells;
     }
@@ -161,10 +154,17 @@ function generateCards(count = 1) {
 }
 
 function checkLuckyCards() {
-    /**
-     * Complete this function to check if any
-     * of the cards matches the lucky cards templates.
-     */
+    cards.forEach(card => {
+        let markedCells = [];
+        card.rows.forEach((row, i) => {
+            row.forEach((cell, j) => {
+                if (cell.isMarked) markedCells.push(`${i}-${j}`);
+            });
+        });
+        card.luckyCard = luckyCardsCellMatches.some(template =>
+            template.every(pos => markedCells.includes(pos))
+        );
+    });
 }
 
 function render() {
@@ -172,35 +172,36 @@ function render() {
     const luckyCardsPlaceholderElem = document.getElementById('luckyCardsPlaceholder');
     
     cardsPlaceholderElem.innerHTML = `<div class="row">
-        ${cards.map((card) => {
-            const rows = card.rows;
-            return `<div class="col-md-4">
-                <table class="table table-bordered text-center">
-                    <thead class="table-primary">
-                        <th>B</th>
-                        <th>I</th>
-                        <th>N</th>
-                        <th>G</th>
-                        <th>O</th>
-                    </thead>
-                    <tbody>
-                    ${rows.map((row) => {
-                        return `<tr>
-                            <td class="${row[0].isMarked ? 'bg-danger' : ''}">${row[0].value}</td>
-                            <td class="${row[1].isMarked ? 'bg-danger' : ''}">${row[1].value}</td>
-                            <td class="${row[2].isMarked ? 'bg-danger' : ''}">${row[2].value}</td>
-                            <td class="${row[3].isMarked ? 'bg-danger' : ''}">${row[3].value}</td>
-                            <td class="${row[4].isMarked ? 'bg-danger' : ''}">${row[4].value}</td>
-                        </tr>`;
-                    }).join('')}
-                    </tbody>
-                    <tfoot class="${card.luckyCard ? 'table-success' : ''}">
-                        <td colspan=5>${card.luckyCard ? 'Lucky Card!' : '&nbsp;'}</td>
-                    </tfoot>
-                </table>
-            </div>`;
-        }).join('')}
-    </div>`;
+    ${cards.map((card, idx) => {
+        const rows = card.rows;
+        return `<div class="col-md-4 mb-4">
+            <div class="text-center fw-bold mb-2" style="color:#38bdf8;">Card ${idx + 1}</div>
+            <table class="table table-bordered text-center">
+                <thead class="table-primary">
+                    <th>B</th>
+                    <th>I</th>
+                    <th>N</th>
+                    <th>G</th>
+                    <th>O</th>
+                </thead>
+                <tbody>
+                ${rows.map((row) => {
+                    return `<tr>
+                        <td class="${row[0].isMarked ? 'bg-danger' : ''}">${row[0].value === "FREE" ? '<i class="fa-solid fa-star text-warning"></i>' : row[0].value}</td>
+                        <td class="${row[1].isMarked ? 'bg-danger' : ''}">${row[1].value === "FREE" ? '<i class="fa-solid fa-star text-warning"></i>' : row[1].value}</td>
+                        <td class="${row[2].isMarked ? 'bg-danger' : ''}">${row[2].value === "FREE" ? '<i class="fa-solid fa-star text-warning"></i>' : row[2].value}</td>
+                        <td class="${row[3].isMarked ? 'bg-danger' : ''}">${row[3].value === "FREE" ? '<i class="fa-solid fa-star text-warning"></i>' : row[3].value}</td>
+                        <td class="${row[4].isMarked ? 'bg-danger' : ''}">${row[4].value === "FREE" ? '<i class="fa-solid fa-star text-warning"></i>' : row[4].value}</td>
+                    </tr>`;
+                }).join('')}
+                </tbody>
+                <tfoot class="${card.luckyCard ? 'table-success' : ''}">
+                    <td colspan=5>${card.luckyCard ? 'Lucky Card!' : '&nbsp;'}</td>
+                </tfoot>
+            </table>
+        </div>`;
+    }).join('')}
+</div>`;
 
     luckyCardsPlaceholderElem.innerHTML = luckyCards.map((luckyCard) => {
         return `<table class="table table-bordered text-center">
@@ -244,21 +245,33 @@ numberOfCardsInput.addEventListener('change', (event) => {
     render();
 });
 
-
 rollBtn.addEventListener('click', () => {
     tambiolo.roll();
 });
 
 drawBtn.addEventListener('click', () => {
-    alert('Complete this function draw a ball from tambiolo.');
-    /**
-     * Steps to complete
-     * 1. draw a ball from tambiolo
-     * 2. add drawn ball to nabola
-     * 3. check all cards with cells is marked
-     * 4. check lucky cards BINGO (if any)
-     * 5. render the page
-     */
+    // 1. draw a ball from tambiolo
+    const bola = tambiolo.draw();
+    if (!bola) {
+        drawBtn.setAttribute('disabled', true);
+        return;
+    }
+    // 2. add drawn ball to nabola
+    nabola.push(bola);
+    // 3. mark cells in all cards
+    cards.forEach(card => {
+        card.rows.forEach((row, i) => {
+            row.forEach((cell, j) => {
+                // Mark cell if matches drawn ball
+                let colLetter = ['B', 'I', 'N', 'G', 'O'][j];
+                if (cell.value === bola.number && colLetter === bola.letter) {
+                    cell.isMarked = true;
+                }
+            });
+        });
+    });
+    // 4. check lucky cards
+    checkLuckyCards();
+    // 5. render the page
+    render();
 });
-
-render();
