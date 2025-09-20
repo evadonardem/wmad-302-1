@@ -318,10 +318,6 @@ numberOfCardsInput.addEventListener('change', (event) => {
     render();
 });
 
-rollBtn.addEventListener('click', () => {
-    bingoMachine.roll();
-    alert('Balls shuffled!');
-});
 
 drawBtn.addEventListener('click', () => {
     if (gameFinished) {
@@ -364,4 +360,17 @@ resetBtn.addEventListener('click', () => {
     gameFinished = false;
     drawBtn.removeAttribute('disabled');
     render();
+});
+
+const shuffleAnimation = document.getElementById('shuffleAnimation');
+
+rollBtn.addEventListener('click', () => {
+  shuffleAnimation.style.display = 'block';  // Show animation
+
+  // Simulate shuffle duration (e.g., 2 seconds)
+  setTimeout(() => {
+    bingoMachine.roll();
+    shuffleAnimation.style.display = 'none';  // Hide animation
+    alert('Balls shuffled!');
+  }, 2000);
 });

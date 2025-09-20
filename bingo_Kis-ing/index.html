@@ -12,7 +12,25 @@
 </head>
 
 <body>
+    
     <button id="reset" class="btn btn-secondary ms-2">Reset</button>
+
+    <div id="shuffleAnimation" style="display:none; 
+    position: fixed; 
+    top: 50%; left: 50%; 
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background: rgba(255,255,255,0.8);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+">
+  <img src="https://i.gifer.com/YCZH.gif" alt="Shuffling..." width="200" />
+  <div style="text-align:center; font-weight:bold; margin-top:10px; font-size: 1.5rem; color: #333;">Shuffling...</div>
+</div>
+
+
+      
 
     <div class="container my-4">
         <div class="row">
@@ -53,3 +71,52 @@
 </body>
 
 </html>
+
+<style>
+    body {
+      background-image: url('https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  
+    .container {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px 30px 30px 30px;
+      border-radius: 15px;
+    }
+  
+    table {
+      background-color: rgba(255, 255, 255, 0.9);
+      color: black;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+  
+    .btn-primary {
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+    }
+  
+    .btn-success {
+      background-color: #198754;
+      border-color: #198754;
+    }
+  
+    .btn-secondary {
+      background-color: #6c757d;
+      border-color: #6c757d;
+    }
+  
+    .badge.bg-primary {
+      background-color: #0d6efd !important;
+    }
+  
+    .badge.bg-success {
+      background-color: #198754 !important;
+    }
+  </style>
+  
