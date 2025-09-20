@@ -24,6 +24,21 @@ class BingoMachine {
          *     G - 46 to 60
          *     O - 61 to 75
          */
+
+        // Initialize balls for each letter and range
+        const ranges = {
+            B: [1, 15],
+            I: [16, 30],
+            N: [31, 45],
+            G: [46, 60],
+            O: [61, 75]
+        };
+
+        for (const [letter, [start, end]] of Object.entries(ranges)) {
+            for (let number = start; number <= end; number++) {
+                this.#balls.push(new BingoBall(letter, number));
+            }
+        }
     }
 
     isEmpty() {
@@ -81,10 +96,15 @@ class BingoCard {
         for (let i = 0; i < 5; i++) {
             this.#cells[i] = [];
             for (let j = 0; j < 5; j++) {
-                this.#cells[i].push({
-                    value: "&nbsp;",
-                    isMarked: false
-                });
+                // Assign random values to cells, ensuring the center cell is a free space
+                if (i === 2 && j === 2) {
+                    this.#cells[i][j] = { value: "FREE", isMarked: true };
+                } else {
+                    this.#cells[i][j] = {
+                        value: randomCellValues.get(j)[i],
+                        isMarked: false
+                    };
+                }
             }
         }
     }
@@ -107,25 +127,25 @@ class BingoCard {
  */
 const luckyCards = [
     [
-        [true, false, false, true, true],
-        [true, false, true, false, false],
-        [true, true, false, false, false],
-        [true, false, true, false, false],
-        [true, false, false, true, true],
+        [true, true, true, true, true],
+        [true, false, false, false, true],
+        [true, true, true, true, true],
+        [true, false, false, false, true],
+        [true, true, true, true, true],
     ],
     [
-        [false, true, true, true, false],
-        [true, false, false, false, true],
+        [true, true, true, true, true],
         [true, false, false, false, false],
-        [true, false, false, false, true],
-        [false, true, true, true, false],
+        [true, true, true, true, false],
+        [true, false, false, false, false],
+        [true, true, true, true, true],
     ],
     [
-        [true, true, true, true, false],
         [true, false, false, false, true],
+        [true, true, false, false, true],
+        [true, false, true, false, true],
+        [true, false, false, true, true],
         [true, false, false, false, true],
-        [true, true, true, true, false],
-        [true, false, false, false, false],
     ]
 ];
 
@@ -160,11 +180,64 @@ function generateCards(count = 1) {
     return newCards;
 }
 
+const shownCelebrations = new Set();
+
+function showCelebration(cardIndex) {
+    if (shownCelebrations.has(cardIndex)) return; // Prevent re-showing for the same card
+
+    shownCelebrations.add(cardIndex);
+
+    const celebrationDiv = document.createElement('div');
+    celebrationDiv.id = 'celebration';
+    celebrationDiv.style.position = 'fixed';
+    celebrationDiv.style.top = '0';
+    celebrationDiv.style.left = '0';
+    celebrationDiv.style.width = '100%';
+    celebrationDiv.style.height = '100%';
+    celebrationDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    celebrationDiv.style.display = 'flex';
+    celebrationDiv.style.alignItems = 'center';
+    celebrationDiv.style.justifyContent = 'center';
+    celebrationDiv.style.zIndex = '1000';
+    celebrationDiv.innerHTML = `
+        <div style="color: white; font-size: 3rem; text-align: center; animation: pop 1s ease-in-out infinite;">
+            🎉 Congratulations! Lucky Card #${cardIndex + 1}! 🎉
+        </div>
+    `;
+
+    document.body.appendChild(celebrationDiv);
+
+    setTimeout(() => {
+        document.body.removeChild(celebrationDiv);
+    }, 3000);
+}
+
+// Add CSS animation for the pop effect
+const style = document.createElement('style');
+style.innerHTML = `
+    @keyframes pop {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); }
+    }
+`;
+document.head.appendChild(style);
+
+// Update checkLuckyCards to ensure cards that already celebrated won't trigger again
 function checkLuckyCards() {
-    /**
-     * Complete this function to check if any
-     * of the cards matches the lucky cards templates.
-     */
+    cards.forEach((card, index) => {
+        const cardMatches = card.rows.flatMap((row, i) =>
+            row.map((cell, j) => (cell.isMarked ? `${i}-${j}` : null)).filter(Boolean)
+        );
+
+        card.luckyCard = luckyCardsCellMatches.some((luckyCard) =>
+            luckyCard.every((match) => cardMatches.includes(match))
+        );
+
+        if (card.luckyCard && !shownCelebrations.has(index)) {
+            showCelebration(index);
+        }
+    });
 }
 
 function render() {
@@ -225,7 +298,10 @@ function render() {
         </table>`;
     }).join('');
     
-    document.getElementById('drawnBallsPlaceholder').innerHTML = nabola.map((bola) => `<span class="badge bg-primary mb-1">${bola.letter}<br>${bola.number}</span>`).join(' ');
+    document.getElementById('drawnBallsPlaceholder').innerHTML = nabola.map((bola) => `
+        <span class="badge bg-primary mb-1" style="border-radius: 50%; padding: 10px; width: 50px; height: 50px; display: inline-flex; align-items: center; justify-content: center;">
+            ${bola.letter}<br>${bola.number}
+        </span>`).join(' ');
 }
 
 /**
@@ -250,15 +326,29 @@ rollBtn.addEventListener('click', () => {
 });
 
 drawBtn.addEventListener('click', () => {
-    alert('Complete this function draw a ball from tambiolo.');
-    /**
-     * Steps to complete
-     * 1. draw a ball from tambiolo
-     * 2. add drawn ball to nabola
-     * 3. check all cards with cells is marked
-     * 4. check lucky cards BINGO (if any)
-     * 5. render the page
-     */
+    const drawnBall = tambiolo.draw();
+    if (drawnBall) {
+        nabola.push(drawnBall);
+
+        // Mark cells on all cards
+        cards.forEach((card) => {
+            card.rows.forEach((row) => {
+                row.forEach((cell) => {
+                    if (cell.value === drawnBall.number) {
+                        cell.isMarked = true;
+                    }
+                });
+            });
+        });
+
+        // Check for lucky cards
+        checkLuckyCards();
+
+        // Render the page
+        render();
+    } else {
+        alert('No more balls to draw!');
+    }
 });
 
 render();
