@@ -1,3 +1,4 @@
+Try AI directly in your favorite apps … Use Gemini to generate drafts and refine content, plus get Gemini Pro with access to Google's next-gen AI for ₱1,100 ₱0 for 1 month
 class BingoBall {
     constructor(letter, number) {
         this.letter = letter;
@@ -14,16 +15,23 @@ class BingoMachine {
     
     #initBalls() {
         this.#balls = [];
-        
-        /**
-         * Initialize bingo ball instances from 1 to 75.
-         * Breakdown:
-         *     B - 1 to 15
-         *     I - 16 to 30
-         *     N - 31 to 45
-         *     G - 46 to 60
-         *     O - 61 to 75
-         */
+
+        // Add balls for each letter with their respective ranges
+        for (let i = 1; i <= 15; i++) {
+            this.#balls.push(new BingoBall('B', i));
+        }
+        for (let i = 16; i <= 30; i++) {
+            this.#balls.push(new BingoBall('I', i));
+        }
+        for (let i = 31; i <= 45; i++) {
+            this.#balls.push(new BingoBall('N', i));
+        }
+        for (let i = 46; i <= 60; i++) {
+            this.#balls.push(new BingoBall('G', i));
+        }
+        for (let i = 61; i <= 75; i++) {
+            this.#balls.push(new BingoBall('O', i));
+        }
     }
 
     isEmpty() {
@@ -73,18 +81,22 @@ class BingoCard {
             [4, _.sampleSize(BingoCard.#cellValueLookup.get('O'), 5)],
         ]);
 
-        /**
-         * Complete this loop condition block to complete
-         * random BINGO card generator.
-         */
         this.#cells = [];
         for (let i = 0; i < 5; i++) {
             this.#cells[i] = [];
             for (let j = 0; j < 5; j++) {
-                this.#cells[i].push({
-                    value: "&nbsp;",
-                    isMarked: false
-                });
+                // Assign "Free" to the center cell
+                if (i === 2 && j === 2) {
+                    this.#cells[i].push({
+                        value: "Free",
+                        isMarked: true, // Mark the "Free" cell by default
+                    });
+                } else {
+                    this.#cells[i].push({
+                        value: randomCellValues.get(j)[i],
+                        isMarked: false,
+                    });
+                }
             }
         }
     }
@@ -161,6 +173,7 @@ function generateCards(count = 1) {
 }
 
 function checkLuckyCards() {
+    
     /**
      * Complete this function to check if any
      * of the cards matches the lucky cards templates.
@@ -170,12 +183,14 @@ function checkLuckyCards() {
 function render() {
     const cardsPlaceholderElem = document.getElementById('cardsPlaceholder');
     const luckyCardsPlaceholderElem = document.getElementById('luckyCardsPlaceholder');
-    
+    const playAgainBtn = document.getElementById('playAgain');
+    const drawBtn = document.getElementById('draw');
+
     cardsPlaceholderElem.innerHTML = `<div class="row">
         ${cards.map((card) => {
             const rows = card.rows;
             return `<div class="col-md-4">
-                <table class="table table-bordered text-center">
+                <table class="table table-bordered text-center bingo-card"> <!-- Add bingo-card class -->
                     <thead class="table-primary">
                         <th>B</th>
                         <th>I</th>
@@ -186,11 +201,11 @@ function render() {
                     <tbody>
                     ${rows.map((row) => {
                         return `<tr>
-                            <td class="${row[0].isMarked ? 'bg-danger' : ''}">${row[0].value}</td>
-                            <td class="${row[1].isMarked ? 'bg-danger' : ''}">${row[1].value}</td>
-                            <td class="${row[2].isMarked ? 'bg-danger' : ''}">${row[2].value}</td>
-                            <td class="${row[3].isMarked ? 'bg-danger' : ''}">${row[3].value}</td>
-                            <td class="${row[4].isMarked ? 'bg-danger' : ''}">${row[4].value}</td>
+                            ${row.map((cell) => {
+                                return `<td class="${cell.isMarked ? 'bg-danger text-white' : ''}">
+                                    ${cell.value}
+                                </td>`;
+                            }).join('')}
                         </tr>`;
                     }).join('')}
                     </tbody>
@@ -203,29 +218,30 @@ function render() {
     </div>`;
 
     luckyCardsPlaceholderElem.innerHTML = luckyCards.map((luckyCard) => {
-        return `<table class="table table-bordered text-center">
-            <thead class="table-primary">
-                <th>B</th>
-                <th>I</th>
-                <th>N</th>
-                <th>G</th>
-                <th>O</th>
-            </thead>
-            <tbody>
+        return `<div class="mb-3">
+            <table class="table table-bordered text-center bingo-card"> <!-- Add bingo-card class -->
+                <tbody>
                 ${luckyCard.map((row) => {
                     return `<tr>
-                        <td class="${row[0] ? 'bg-danger' : ''}">&nbsp;</td>
-                        <td class="${row[1] ? 'bg-danger' : ''}">&nbsp;</td>
-                        <td class="${row[2] ? 'bg-danger' : ''}">&nbsp;</td>
-                        <td class="${row[3] ? 'bg-danger' : ''}">&nbsp;</td>
-                        <td class="${row[4] ? 'bg-danger' : ''}">&nbsp;</td>
+                        ${row.map((cell) => `<td class="${cell ? 'bg-danger text-white' : ''}">&nbsp;</td>`).join('')}
                     </tr>`;
                 }).join('')}
-            </tbody>
-        </table>`;
+                </tbody>
+            </table>
+        </div>`;
     }).join('');
-    
+
     document.getElementById('drawnBallsPlaceholder').innerHTML = nabola.map((bola) => `<span class="badge bg-primary mb-1">${bola.letter}<br>${bola.number}</span>`).join(' ');
+
+    // Check if a lucky card is revealed
+    const hasLuckyCard = cards.some((card) => card.luckyCard);
+    if (hasLuckyCard) {
+        playAgainBtn.style.display = 'block';
+        drawBtn.setAttribute('disabled', 'true'); // Disable the "Draw" button
+    } else {
+        playAgainBtn.style.display = 'none';
+        drawBtn.removeAttribute('disabled'); // Enable the "Draw" button
+    }
 }
 
 /**
@@ -234,6 +250,7 @@ function render() {
 const numberOfCardsInput = document.getElementById('numberOfCards');
 const rollBtn = document.getElementById('roll');
 const drawBtn = document.getElementById('draw');
+const playAgainBtn = document.getElementById('playAgain');
 
 numberOfCardsInput.addEventListener('change', (event) => {
     const numberOfCards = event.target.value;
@@ -249,16 +266,78 @@ rollBtn.addEventListener('click', () => {
     tambiolo.roll();
 });
 
+let drawInterval = null; // Variable to store the interval ID
+
 drawBtn.addEventListener('click', () => {
-    alert('Complete this function draw a ball from tambiolo.');
-    /**
-     * Steps to complete
-     * 1. draw a ball from tambiolo
-     * 2. add drawn ball to nabola
-     * 3. check all cards with cells is marked
-     * 4. check lucky cards BINGO (if any)
-     * 5. render the page
-     */
+    // Disable the "Draw" button to prevent multiple intervals
+    drawBtn.setAttribute('disabled', 'true');
+
+    // Start automatic drawing with a 1-second interval
+    drawInterval = setInterval(() => {
+        // Draw a ball
+        const drawnBall = tambiolo.draw();
+        if (!drawnBall) {
+            alert('No more balls to draw!');
+            clearInterval(drawInterval); // Stop the interval if no balls are left
+            return;
+        }
+
+        // Add the drawn ball to nabola
+        nabola.push(drawnBall);
+
+        // Check all cards and mark matching cells
+        cards.forEach((card) => {
+            card.rows.forEach((row) => {
+                row.forEach((cell) => {
+                    if (cell.value === drawnBall.number) {
+                        cell.isMarked = true;
+                    }
+                });
+            });
+
+            // Check if the card is a lucky card
+            const markedCells = [];
+            card.rows.forEach((row, rowIndex) => {
+                row.forEach((cell, colIndex) => {
+                    if (cell.isMarked) {
+                        markedCells.push(`${rowIndex}-${colIndex}`);
+                    }
+                });
+            });
+
+            markedCells.sort();
+            card.luckyCard = luckyCardsCellMatches.some((luckyCard) =>
+                luckyCard.every((cell) => markedCells.includes(cell))
+            );
+        });
+
+        // Check if a lucky card is revealed
+        const hasLuckyCard = cards.some((card) => card.luckyCard);
+        if (hasLuckyCard) {
+            clearInterval(drawInterval); // Stop the interval
+            render(); // Update the UI to show the lucky card
+            return;
+        }
+
+        // Render the page after each draw
+        render();
+    }, 1000); // 1-second interval
+});
+
+playAgainBtn.addEventListener('click', () => {
+    // Get the number of cards from the input
+    const numberOfCards = numberOfCardsInput.value || 1; // Default to 1 card if no input
+
+    // Generate a new set of cards
+    cards = generateCards(numberOfCards);
+
+    // Reset the game state
+    nabola = [];
+    tambiolo.reset();
+    drawBtn.removeAttribute('disabled');
+
+    // Re-render the page with the new cards
+    render();
 });
 
 render();
