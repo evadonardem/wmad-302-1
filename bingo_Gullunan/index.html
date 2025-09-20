@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My BINGO Game (LastName, FirstName)</title>
+    <title>My BINGO Game (Gullunan, Jemar Brent)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
         integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -20,6 +20,13 @@
 </head>
 
 <body>
+
+    <header class="text-center my-4">
+        <h1 class="text-primary fw-bold">Let's Play Bingo</h1>
+    </header>
+
+
+
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -33,8 +40,15 @@
             </div>
             <div class="col-md-4">
                 <div class="btn-group form-control mt-3 mb-3" role="group">
-                    <button type="button" class="btn btn-primary" id="roll">Roll</button>
-                    <button type="button" class="btn btn-success" id="draw">Draw</button>
+                    <button type="button" class="btn btn-primary" id="roll">
+                        <i class="fas fa-dice"></i> Roll
+                    </button>
+                    <button type="button" class="btn btn-success" id="draw">
+                        <i class="fas fa-random"></i> Draw
+                    </button>
+                    <button type="button" class="btn btn-danger" id="playAgain">
+                        <i class="fas fa-redo"></i> Play Again
+                    </button>
                 </div>
                 <div class="card mb-3">
                     <div class="card-header">

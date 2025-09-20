@@ -24,6 +24,14 @@ class BingoMachine {
          *     G - 46 to 60
          *     O - 61 to 75
          */
+        const letters = ['B', 'I', 'N', 'G', 'O'];
+        let start = 1;
+        for (let i = 0; i < letters.length; i++) {
+            for (let n = start; n < start + 15; n++) {
+                this.#balls.push(new BingoBall(letters[i], n));
+            }
+            start += 15;
+        }
     }
 
     isEmpty() {
@@ -50,11 +58,11 @@ class BingoMachine {
 
 class BingoCard {
     static #cellValueLookup = new Map([
-        ['B', _.range(1, 15)],
-        ['I', _.range(16, 30)],
-        ['N', _.range(31, 45)],
-        ['G', _.range(46, 60)],
-        ['O', _.range(61, 75)],
+        ['B', _.range(1, 16)],
+        ['I', _.range(16, 31)],
+        ['N', _.range(31, 46)],
+        ['G', _.range(46, 61)],
+        ['O', _.range(61, 76)],
     ]);
 
     #cells;
@@ -73,20 +81,18 @@ class BingoCard {
             [4, _.sampleSize(BingoCard.#cellValueLookup.get('O'), 5)],
         ]);
 
-        /**
-         * Complete this loop condition block to complete
-         * random BINGO card generator.
-         */
         this.#cells = [];
         for (let i = 0; i < 5; i++) {
             this.#cells[i] = [];
             for (let j = 0; j < 5; j++) {
                 this.#cells[i].push({
-                    value: "&nbsp;",
+                    value: randomCellValues.get(j)[i],
                     isMarked: false
                 });
             }
         }
+        // Free space in the middle
+        this.#cells[2][2] = { value: "FREE", isMarked: true };
     }
 
     get rows() {
@@ -126,7 +132,7 @@ const luckyCards = [
         [true, false, false, false, true],
         [true, true, true, true, false],
         [true, false, false, false, false],
-    ]
+    ] 
 ];
 
 /**
@@ -161,10 +167,22 @@ function generateCards(count = 1) {
 }
 
 function checkLuckyCards() {
-    /**
-     * Complete this function to check if any
-     * of the cards matches the lucky cards templates.
-     */
+    cards.forEach((card) => {
+        let matchedCells = [];
+        card.rows.forEach((row, i) => {
+            row.forEach((cell, j) => {
+                if (cell.isMarked) {
+                    matchedCells.push(`${i}-${j}`);
+                }
+            });
+        });
+        matchedCells.sort();
+
+        // compare with templates
+        card.luckyCard = luckyCardsCellMatches.some((template) =>
+            template.every((pos) => matchedCells.includes(pos))
+        );
+    });
 }
 
 function render() {
@@ -225,15 +243,21 @@ function render() {
         </table>`;
     }).join('');
     
-    document.getElementById('drawnBallsPlaceholder').innerHTML = nabola.map((bola) => `<span class="badge bg-primary mb-1">${bola.letter}<br>${bola.number}</span>`).join(' ');
+    document.getElementById('drawnBallsPlaceholder')
+    .innerHTML = nabola.map((bola) => `<span class="badge bg-primary mb-1">
+    ${bola.letter}<br>${bola.number}</span>`).join(' ');
 }
 
+/**
+ * Events
+ */
 /**
  * Events
  */
 const numberOfCardsInput = document.getElementById('numberOfCards');
 const rollBtn = document.getElementById('roll');
 const drawBtn = document.getElementById('draw');
+const playAgainBtn = document.getElementById('playAgain'); // 🔄 RESET button
 
 numberOfCardsInput.addEventListener('change', (event) => {
     const numberOfCards = event.target.value;
@@ -244,21 +268,60 @@ numberOfCardsInput.addEventListener('change', (event) => {
     render();
 });
 
-
 rollBtn.addEventListener('click', () => {
     tambiolo.roll();
 });
 
 drawBtn.addEventListener('click', () => {
-    alert('Complete this function draw a ball from tambiolo.');
-    /**
-     * Steps to complete
-     * 1. draw a ball from tambiolo
-     * 2. add drawn ball to nabola
-     * 3. check all cards with cells is marked
-     * 4. check lucky cards BINGO (if any)
-     * 5. render the page
-     */
+    // 1. draw a ball
+    let bola = tambiolo.draw();
+    if (!bola) {
+        alert("No more balls left!");
+        return;
+    }
+
+    // 2. add drawn ball to nabola
+    nabola.push(bola);
+
+    // 3. check all cards with cells is marked
+    cards.forEach((card) => {
+        card.rows.forEach((row) => {
+            row.forEach((cell) => {
+                if (cell.value === bola.number) {
+                    cell.isMarked = true;
+                }
+            });
+        });
+    });
+
+    // 4. check lucky cards BINGO (if any)
+    checkLuckyCards();
+
+    // 5. render the page
+    render();
+
+    // Stop drawing if someone wins
+    if (cards.some(card => card.luckyCard)) {
+        drawBtn.setAttribute('disabled', true);
+    }
+});
+
+// 🔄 RESET: Play Again button logic
+playAgainBtn.addEventListener('click', () => {
+    // Reset global state
+    cards = [];
+    nabola = [];
+    tambiolo.reset();
+
+    // Clear UI
+    numberOfCardsInput.value = "";
+    document.getElementById('cardsPlaceholder').innerHTML = "";
+    document.getElementById('drawnBallsPlaceholder').innerHTML = "";
+    document.getElementById('luckyCardsPlaceholder').innerHTML = "";
+
+    // Enable draw again (wait for user to enter cards)
+    drawBtn.setAttribute('disabled', true);
 });
 
 render();
+
