@@ -1,10 +1,11 @@
+Try AI directly in your favorite apps … Use Gemini to generate drafts and refine content, plus get Gemini Pro with access to Google's next-gen AI for ₱1,100 ₱0 for 1 month
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My BINGO Game (LastName, FirstName)</title>
+    <title>My BINGO Game (Navalta, Ysrael)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
         integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -17,6 +18,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        table.bingo-card td {
+            width: 50px;
+            /* Fixed width for each cell */
+            height: 50px;
+            /* Fixed height for each cell */
+            text-align: center;
+            /* Center the text horizontally */
+            vertical-align: middle;
+            /* Center the text vertically */
+            font-size: 18px;
+            /* Adjust font size for better readability */
+        }
+    </style>
 </head>
 
 <body>
@@ -35,6 +50,7 @@
                 <div class="btn-group form-control mt-3 mb-3" role="group">
                     <button type="button" class="btn btn-primary" id="roll">Roll</button>
                     <button type="button" class="btn btn-success" id="draw">Draw</button>
+                    <button type="button" class="btn btn-warning" id="playAgain" style="display: none;">Play Again</button> <!-- New Play Again Button -->
                 </div>
                 <div class="card mb-3">
                     <div class="card-header">
@@ -60,4 +76,4 @@
     <script src="scripts/bingo.js"></script>
 </body>
 
-</html>row
+</html>
