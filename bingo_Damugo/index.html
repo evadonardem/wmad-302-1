@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My BINGO Game (Damugo, )</title>
+
+    <!-- External libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
+        integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+        integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* Container adjustments */
+        body {
+            background: linear-gradient(135deg, #f8e4ba, #faeeb8);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Bingo card styling */
+        table.bingo-card {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #ffffffcc;
+            transition: transform 0.3s ease;
+            cursor: default;
+            user-select: none;
+        }
+
+        table.bingo-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        table.bingo-card thead th {
+            background: linear-gradient(45deg, #0288d1, #81d4fa);
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 10px 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        table.bingo-card tbody td {
+            border: 1px solid #0288d1;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 14px 0;
+            color: #01579b;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            position: relative;
+        }
+
+        /* Marked cells styling */
+        table.bingo-card tbody td.bg-danger {
+            background: #ff5252 !important;
+            color: white !important;
+            font-weight: 700;
+            box-shadow: inset 0 0 10px #ff1744;
+        }
+
+        /* Free space special style */
+        table.bingo-card tbody td.free-space {
+            background: #4caf50;
+            color: white;
+            font-weight: 700;
+            font-style: italic;
+            text-shadow: 0 0 5px #2e7d32;
+        }
+
+        /* Footer for lucky cards */
+        table.bingo-card tfoot td {
+            background: #a5d6a7;
+            color: #1b5e20;
+            font-weight: 700;
+            font-size: 1rem;
+            text-align: center;
+            padding: 8px 0;
+            border-top: 2px solid #388e3c;
+        }
+
+        /* Drawn balls badge */
+        #drawnBallsPlaceholder .badge {
+            font-size: 1.1rem;
+            margin: 0 6px 6px 0;
+            width: 45px;
+            height: 60px;
+            padding: 10px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+            display: inline-block;
+            line-height: 1.1;
+            font-weight: 700;
+        }
+
+        #drawnBallsPlaceholder .badge.bg-primary {
+            background: linear-gradient(135deg, #1976d2, #42a5f5);
+            color: white;
+            border: 2px solid #0d47a1;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Buttons styling */
+        .btn-primary {
+            background-color: #0288d1;
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            background-color: #0277bd;
+        }
+
+        .btn-success {
+            background-color: #4caf50;
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .btn-success:hover {
+            background-color: #388e3c;
+        }
+
+        /* Rolling status styling */
+        #rollingStatus {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #f57c00;
+            font-family: 'Courier New', Courier, monospace;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-floating mt-3 mb-3">
+                    <input type="number" class="form-control" id="numberOfCards" min="1" max="10" placeholder="Number of Cards" />
+                    <label for="numberOfCards">Number of Cards</label>
+                </div>
+                <div id="cardsPlaceholder">
+                    <!-- Bingo Cards Placeholder -->
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="btn-group form-control mt-3 mb-3" role="group">
+                    <button type="button" class="btn btn-primary" id="roll">Roll</button>
+                    <button type="button" class="btn btn-success" id="draw" disabled>Draw</button>
+                </div>
+
+                <!-- Rolling status message -->
+                <div id="rollingStatus" style="display: none;">
+                    Tambiolo is rolling...
+                </div>
+
+                
+                <div class="card mb-3">
+                    <div class="card-header">
+                        Drawn Balls
+                    </div>
+                    <div class="card-body">
+                        <div id="drawnBallsPlaceholder"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        Lucky Cards
+                    </div>
+                    <div class="card-body">
+                        <div id="luckyCardsPlaceholder">
+                            <!-- Lucky Cards Templates Placeholder -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <script src="scripts/bingo.js"></script>
+</body>
+
+</html>
