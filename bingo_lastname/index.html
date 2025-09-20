@@ -4,12 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My BINGO Game (LastName, FirstName)</title>
+    <title>BINGO Game (basilio, Clint Kycer)</title>
+    <!-- Bootstrap & FontAwesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
         integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
-        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
         integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
@@ -17,47 +15,175 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom styles -->
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+
+        .header-bar {
+            background: linear-gradient(90deg, #f5f7fa 0%, #e3eafc 100%);
+            box-shadow: 0 2px 8px rgba(60, 60, 60, 0.05);
+            border-radius: 1rem;
+            margin: 2rem auto 1.5rem auto;
+            max-width: 500px;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .header-bar .fa-bingo {
+            color: #3b82f6;
+            font-size: 2rem;
+        }
+
+        .bingo-card-container {
+            background: #fff;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 24px rgba(60, 60, 60, 0.10);
+            padding: 2rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .table-bingo {
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(60, 60, 60, 0.07);
+            margin-bottom: 0;
+        }
+
+        th,
+        td {
+            background: #f8fafc;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        th {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #2563eb;
+            background: #e3eafc;
+        }
+
+        td {
+            font-size: 1.05rem;
+            color: #334155;
+            cursor: pointer;
+            border-radius: 0.5rem;
+        }
+
+        td:hover {
+            background: #dbeafe;
+            color: #2563eb;
+            box-shadow: 0 0 0 2px #3b82f6 inset;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .free-cell {
+            background: linear-gradient(90deg, #bbf7d0 0%, #a7f3d0 100%);
+            color: #059669;
+            font-weight: bold;
+            border-radius: 0.5rem;
+        }
+
+        .form-floating .form-control {
+            border-radius: 0.75rem;
+            background: #f1f5f9;
+            box-shadow: 0 1px 4px rgba(60, 60, 60, 0.04);
+        }
+
+        @media (max-width: 600px) {
+            .header-bar,
+            .bingo-card-container {
+                max-width: 98vw;
+                padding: 1rem;
+            }
+
+            .table-bingo th,
+            .table-bingo td {
+                font-size: 0.95rem;
+                padding: 0.5rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Header Bar -->
+    <div class="header-bar">
+        <i class="fa-solid fa-chess-board fa-bingo"></i>
+        <span class="fs-4 fw-semibold">BINGO</span>
+    </div>
+
     <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="form-floating mt-3 mb-3">
-                    <input type="number" class="form-control" id="numberOfCards">
-                    <label for="numberOfCards">Number of Cards</label>
-                </div>
-                <div id="cardsPlaceholder">
-                    <!-- Bingo Cards Placeholder -->
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="btn-group form-control mt-3 mb-3" role="group">
-                    <button type="button" class="btn btn-primary" id="roll">Roll</button>
-                    <button type="button" class="btn btn-success" id="draw">Draw</button>
-                </div>
-                <div class="card mb-3">
-                    <div class="card-header">
-                        Drawn Balls
-                    </div>
-                    <div class="card-body">
-                        <div id="drawnBallsPlaceholder"></div>  
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        Lucky Cards
-                    </div>
-                    <div class="card-body">
-                        <div id="luckyCardsPlaceholder">
-                            <!-- Lucky Cards Templates Placeholder -->
-                        </div>  
-                    </div>
-                </div>
-            </div>
+        <!-- Card Input -->
+        <div class="form-floating mt-3 mb-4 mx-auto" style="max-width: 300px;">
+            <input type="number" class="form-control" id="numberOfCards" min="1" max="10" placeholder="Number of Cards">
+            <label for="numberOfCards">Number of Cards</label>
+        </div>
+
+        <div id="cardsPlaceholder"></div>
+
+        <!-- Bingo Card Template -->
+        <div class="bingo-card-container mb-5">
+            <table class="table table-sm table-bordered table-striped table-striped-columns table-bingo mb-0">
+                <thead>
+                    <tr>
+                        <th class="text-center">B</th>
+                        <th class="text-center">I</th>
+                        <th class="text-center">N</th>
+                        <th class="text-center">G</th>
+                        <th class="text-center">O</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                        <td class="text-center free-cell">FREE</td>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                        <td class="text-center">X</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+
+    <!-- LOGIC SCRIPT -->
     <script src="scripts/bingo.js"></script>
 </body>
 
-</html>row
+</html>
