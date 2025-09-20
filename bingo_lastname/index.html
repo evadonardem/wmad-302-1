@@ -2,62 +2,186 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My BINGO Game (LastName, FirstName)</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
-        integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
-        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
-        integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My BINGO Game (Acosta, Aldrin Jay)</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
+    integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+    integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+    integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background: rgb(7, 21, 174);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-weight: bold;
+    }
+
+    .container {
+      margin-top: 20px;
+      position: relative;
+      z-index: 2; /* keep content above numbers */
+    }
+
+    table {
+      background: lightgreen;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    table thead th {
+      font-size: 18px;
+      text-align: center;
+    }
+
+    table td {
+      width: 60px;
+      height: 60px;
+      font-size: 18px;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    .table-success td {
+      font-weight: bold;
+      color: #155724;
+    }
+
+    .badge {
+      font-size: 14px;
+      padding: 10px;
+      min-width: 45px;
+      line-height: 1.2;
+    }
+
+    #drawnBallsPlaceholder {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    #numberOfCards {
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .btn-group .btn {
+      font-size: 18px;
+      padding: 10px 20px;
+    }
+
+    .card {
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      background-color: rgba(255,255,255,0.95);
+    }
+
+    .card-header {
+      font-weight: bold;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    /* Highlight FREE space */
+    td:contains("FREE") {
+      background: #07fff7 !important;
+      font-weight: bold;
+    }
+
+    /* Floating numbers container behind everything */
+    .floating-numbers {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0; /* behind content */
+      pointer-events: none;
+    }
+
+    .number {
+      position: absolute;
+      font-size: 40px;
+      font-weight: bold;
+      color: rgba(255,255,255,0.4);
+      animation: floatUp 10s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {opacity: 1;}
+      100% {
+        transform: translateY(-20vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="form-floating mt-3 mb-3">
-                    <input type="number" class="form-control" id="numberOfCards">
-                    <label for="numberOfCards">Number of Cards</label>
-                </div>
-                <div id="cardsPlaceholder">
-                    <!-- Bingo Cards Placeholder -->
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="btn-group form-control mt-3 mb-3" role="group">
-                    <button type="button" class="btn btn-primary" id="roll">Roll</button>
-                    <button type="button" class="btn btn-success" id="draw">Draw</button>
-                </div>
-                <div class="card mb-3">
-                    <div class="card-header">
-                        Drawn Balls
-                    </div>
-                    <div class="card-body">
-                        <div id="drawnBallsPlaceholder"></div>  
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        Lucky Cards
-                    </div>
-                    <div class="card-body">
-                        <div id="luckyCardsPlaceholder">
-                            <!-- Lucky Cards Templates Placeholder -->
-                        </div>  
-                    </div>
-                </div>
-            </div>
+  <!-- Floating numbers background -->
+  <div class="floating-numbers">
+    <div class="number" style="left:5%; animation-delay:0s;">7</div>
+    <div class="number" style="left:20%; animation-delay:2s;">14</div>
+    <div class="number" style="left:40%; animation-delay:4s;">29</div>
+    <div class="number" style="left:60%; animation-delay:1s;">53</div>
+    <div class="number" style="left:80%; animation-delay:3s;">68</div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-floating mt-3 mb-3">
+          <input type="number" class="form-control" id="numberOfCards">
+          <label for="numberOfCards">Number of Cards</label>
         </div>
+        <div id="cardsPlaceholder">
+          <!-- Bingo Cards Placeholder -->
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="btn-group form-control mt-3 mb-3" role="group">
+          <button type="button" class="btn btn-primary" id="roll">Roll</button>
+          <button type="button" class="btn btn-success" id="draw">Draw</button>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header">
+            Drawn Balls
+          </div>
+          <div class="card-body">
+            <div id="drawnBallsPlaceholder"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            Lucky Cards
+          </div>
+          <div class="card-body">
+            <div id="luckyCardsPlaceholder">
+              <!-- Lucky Cards Templates Placeholder -->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <script src="scripts/bingo.js"></script>
+  </div>
+
+  <script src="scripts/bingo.js"></script>
 </body>
 
-</html>row
+</html>
