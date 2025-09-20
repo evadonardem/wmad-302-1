@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My BINGO Game (LastName, FirstName)</title>
+    <title>My BINGO Game (Ceasar, Royce)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
         integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -17,6 +17,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        #luckyCardsPlaceholder {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
+            align-items: flex-start;
+        }
+
+        #luckyCardsPlaceholder table {
+            flex: 1 1 180px;
+            /* grow, shrink, base width */
+            min-width: 140px;
+            max-width: 100%;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -41,7 +57,7 @@
                         Drawn Balls
                     </div>
                     <div class="card-body">
-                        <div id="drawnBallsPlaceholder"></div>  
+                        <div id="drawnBallsPlaceholder"></div>
                     </div>
                 </div>
                 <div class="card">
@@ -51,7 +67,8 @@
                     <div class="card-body">
                         <div id="luckyCardsPlaceholder">
                             <!-- Lucky Cards Templates Placeholder -->
-                        </div>  
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -60,4 +77,4 @@
     <script src="scripts/bingo.js"></script>
 </body>
 
-</html>row
+</html>
