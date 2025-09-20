@@ -49,11 +49,11 @@ class BingoMachine {
 
 class BingoCard {
     static #cellValueLookup = new Map([
-        ['B', _.range(1, 16)],
-        ['I', _.range(16, 31)],
-        ['N', _.range(31, 46)],
-        ['G', _.range(46, 61)],
-        ['O', _.range(61, 76)],
+        ['B', _.range(1, 15)],
+        ['I', _.range(16, 30)],
+        ['N', _.range(31, 45)],
+        ['G', _.range(46, 60)],
+        ['O', _.range(61, 75)],
     ]);
 
     #cells;
