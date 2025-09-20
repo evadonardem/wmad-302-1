@@ -14,16 +14,20 @@ class BingoMachine {
     
     #initBalls() {
         this.#balls = [];
-        
-        /**
-         * Initialize bingo ball instances from 1 to 75.
-         * Breakdown:
-         *     B - 1 to 15
-         *     I - 16 to 30
-         *     N - 31 to 45
-         *     G - 46 to 60
-         *     O - 61 to 75
-         */
+
+        const ranges = {
+            'B': _.range(1, 16),
+            'I': _.range(16, 31),
+            'N': _.range(31, 46),
+            'G': _.range(46, 61),
+            'O': _.range(61, 76),
+        };
+
+        for (let letter in ranges) {
+            ranges[letter].forEach((num) => {
+                this.#balls.push(new BingoBall(letter, num));
+            });
+        }
     }
 
     isEmpty() {
@@ -50,11 +54,11 @@ class BingoMachine {
 
 class BingoCard {
     static #cellValueLookup = new Map([
-        ['B', _.range(1, 15)],
-        ['I', _.range(16, 30)],
-        ['N', _.range(31, 45)],
-        ['G', _.range(46, 60)],
-        ['O', _.range(61, 75)],
+        ['B', _.range(1, 16)],
+        ['I', _.range(16, 31)],
+        ['N', _.range(31, 46)],
+        ['G', _.range(46, 61)],
+        ['O', _.range(61, 76)],
     ]);
 
     #cells;
@@ -73,20 +77,19 @@ class BingoCard {
             [4, _.sampleSize(BingoCard.#cellValueLookup.get('O'), 5)],
         ]);
 
-        /**
-         * Complete this loop condition block to complete
-         * random BINGO card generator.
-         */
         this.#cells = [];
-        for (let i = 0; i < 5; i++) {
-            this.#cells[i] = [];
-            for (let j = 0; j < 5; j++) {
-                this.#cells[i].push({
-                    value: "&nbsp;",
+        for (let row = 0; row < 5; row++) {
+            this.#cells[row] = [];
+            for (let col = 0; col < 5; col++) {
+                this.#cells[row][col] = {
+                    value: randomCellValues.get(col)[row],
                     isMarked: false
-                });
+                };
             }
         }
+
+
+        this.#cells[2][2] = { value: "FREE", isMarked: true };
     }
 
     get rows() {
@@ -102,9 +105,6 @@ class BingoCard {
     }
 }
 
-/**
- * Lucky cards templates
- */
 const luckyCards = [
     [
         [true, false, false, true, true],
@@ -129,9 +129,7 @@ const luckyCards = [
     ]
 ];
 
-/**
- * Lucky cards cell matches lookup
- */
+
 const luckyCardsCellMatches = luckyCards.map((rows) => {
     let cellMatches = [];
     rows.forEach((row, i) => {
@@ -152,19 +150,28 @@ const tambiolo = new BingoMachine();
 
 function generateCards(count = 1) {
     let newCards = [];
-    // generate cards using loops
     for (let i = 0; i < count; i++) {
         newCards.push(new BingoCard());
     }
-
     return newCards;
 }
 
 function checkLuckyCards() {
-    /**
-     * Complete this function to check if any
-     * of the cards matches the lucky cards templates.
-     */
+    cards.forEach((card) => {
+        let markedCells = [];
+        card.rows.forEach((row, i) => {
+            row.forEach((cell, j) => {
+                if (cell.isMarked) {
+                    markedCells.push(`${i}-${j}`);
+                }
+            });
+        });
+        markedCells.sort();
+
+        card.luckyCard = luckyCardsCellMatches.some((template) => 
+            template.every((pos) => markedCells.includes(pos))
+        );
+    });
 }
 
 function render() {
@@ -191,7 +198,7 @@ function render() {
                             <td class="${row[2].isMarked ? 'bg-danger' : ''}">${row[2].value}</td>
                             <td class="${row[3].isMarked ? 'bg-danger' : ''}">${row[3].value}</td>
                             <td class="${row[4].isMarked ? 'bg-danger' : ''}">${row[4].value}</td>
-                        </tr>`;
+                        </tr>`; 
                     }).join('')}
                     </tbody>
                     <tfoot class="${card.luckyCard ? 'table-success' : ''}">
@@ -228,9 +235,6 @@ function render() {
     document.getElementById('drawnBallsPlaceholder').innerHTML = nabola.map((bola) => `<span class="badge bg-primary mb-1">${bola.letter}<br>${bola.number}</span>`).join(' ');
 }
 
-/**
- * Events
- */
 const numberOfCardsInput = document.getElementById('numberOfCards');
 const rollBtn = document.getElementById('roll');
 const drawBtn = document.getElementById('draw');
@@ -244,21 +248,32 @@ numberOfCardsInput.addEventListener('change', (event) => {
     render();
 });
 
-
 rollBtn.addEventListener('click', () => {
     tambiolo.roll();
 });
 
 drawBtn.addEventListener('click', () => {
-    alert('Complete this function draw a ball from tambiolo.');
-    /**
-     * Steps to complete
-     * 1. draw a ball from tambiolo
-     * 2. add drawn ball to nabola
-     * 3. check all cards with cells is marked
-     * 4. check lucky cards BINGO (if any)
-     * 5. render the page
-     */
+    let bola = tambiolo.draw();
+    if (!bola) {
+        alert("No more balls!");
+        return;
+    }
+
+    nabola.push(bola);
+
+
+    cards.forEach((card) => {
+        card.rows.forEach((row) => {
+            row.forEach((cell) => {
+                if (cell.value === bola.number) {
+                    cell.isMarked = true;
+                }
+            });
+        });
+    });
+
+    checkLuckyCards();
+    render();
 });
 
 render();
