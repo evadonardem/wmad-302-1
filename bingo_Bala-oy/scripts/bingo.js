@@ -87,7 +87,6 @@ class BingoCard {
             }
         }
 
-        // Free space in the center
         this.#cells[2][2] = {
             value: 'FREE',
             isMarked: true
@@ -107,9 +106,6 @@ class BingoCard {
     }
 }
 
-/**
- * Lucky cards templates
- */
 const luckyCards = [
     [
         [true, false, false, true, true],
@@ -134,9 +130,6 @@ const luckyCards = [
     ]
 ];
 
-/**
- * Lucky cards cell matches lookup
- */
 const luckyCardsCellMatches = luckyCards.map((rows) => {
     let cellMatches = [];
     rows.forEach((row, i) => {
@@ -232,9 +225,6 @@ function render() {
     ).join(' ');
 }
 
-/**
- * Events
- */
 const numberOfCardsInput = document.getElementById('numberOfCards');
 const rollBtn = document.getElementById('roll');
 const drawBtn = document.getElementById('draw');
