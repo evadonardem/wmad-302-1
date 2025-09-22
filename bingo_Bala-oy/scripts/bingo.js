@@ -15,15 +15,19 @@ class BingoMachine {
     #initBalls() {
         this.#balls = [];
         
-        /**
-         * Initialize bingo ball instances from 1 to 75.
-         * Breakdown:
-         *     B - 1 to 15
-         *     I - 16 to 30
-         *     N - 31 to 45
-         *     G - 46 to 60
-         *     O - 61 to 75
-         */
+        const ranges = {
+            'B': [1, 15],
+            'I': [16, 30],
+            'N': [31, 45],
+            'G': [46, 60],
+            'O': [61, 75],
+        };
+
+        for (let [letter, [start, end]] of Object.entries(ranges)) {
+            for (let num = start; num <= end; num++) {
+                this.#balls.push(new BingoBall(letter, num));
+            }
+        }
     }
 
     isEmpty() {
@@ -38,7 +42,6 @@ class BingoMachine {
         if (this.#balls.length === 0) {
             return null;
         }
-
         let index = _.random(0, this.#balls.length - 1);
         return _.pullAt(this.#balls, index)[0];
     }
@@ -50,11 +53,11 @@ class BingoMachine {
 
 class BingoCard {
     static #cellValueLookup = new Map([
-        ['B', _.range(1, 15)],
-        ['I', _.range(16, 30)],
-        ['N', _.range(31, 45)],
-        ['G', _.range(46, 60)],
-        ['O', _.range(61, 75)],
+        ['B', _.range(1, 16)],
+        ['I', _.range(16, 31)],
+        ['N', _.range(31, 46)],
+        ['G', _.range(46, 61)],
+        ['O', _.range(61, 76)],
     ]);
 
     #cells;
@@ -73,20 +76,22 @@ class BingoCard {
             [4, _.sampleSize(BingoCard.#cellValueLookup.get('O'), 5)],
         ]);
 
-        /**
-         * Complete this loop condition block to complete
-         * random BINGO card generator.
-         */
         this.#cells = [];
         for (let i = 0; i < 5; i++) {
             this.#cells[i] = [];
             for (let j = 0; j < 5; j++) {
                 this.#cells[i].push({
-                    value: "&nbsp;",
+                    value: randomCellValues.get(j)[i],
                     isMarked: false
                 });
             }
         }
+
+        // Free space in the center
+        this.#cells[2][2] = {
+            value: 'FREE',
+            isMarked: true
+        };
     }
 
     get rows() {
@@ -145,26 +150,39 @@ const luckyCardsCellMatches = luckyCards.map((rows) => {
     return cellMatches;
 });
 
-
 let cards = [];
 let nabola = [];
 const tambiolo = new BingoMachine();
 
 function generateCards(count = 1) {
     let newCards = [];
-    // generate cards using loops
     for (let i = 0; i < count; i++) {
         newCards.push(new BingoCard());
     }
-
     return newCards;
 }
 
 function checkLuckyCards() {
-    /**
-     * Complete this function to check if any
-     * of the cards matches the lucky cards templates.
-     */
+    cards.forEach(card => {
+        const markedCells = [];
+        card.rows.forEach((row, i) => {
+            row.forEach((cell, j) => {
+                if (cell.isMarked) {
+                    markedCells.push(`${i}-${j}`);
+                }
+            });
+        });
+        markedCells.sort();
+
+        for (let lucky of luckyCardsCellMatches) {
+            const isMatch = lucky.every(cell => markedCells.includes(cell));
+            if (isMatch) {
+                card.luckyCard = true;
+                return;
+            }
+        }
+        card.luckyCard = false;
+    });
 }
 
 function render() {
@@ -172,30 +190,22 @@ function render() {
     const luckyCardsPlaceholderElem = document.getElementById('luckyCardsPlaceholder');
     
     cardsPlaceholderElem.innerHTML = `<div class="row">
-        ${cards.map((card) => {
+        ${cards.map((card, index) => {
             const rows = card.rows;
             return `<div class="col-md-4">
                 <table class="table table-bordered text-center">
                     <thead class="table-primary">
-                        <th>B</th>
-                        <th>I</th>
-                        <th>N</th>
-                        <th>G</th>
-                        <th>O</th>
+                        <th>B</th><th>I</th><th>N</th><th>G</th><th>O</th>
                     </thead>
                     <tbody>
                     ${rows.map((row) => {
                         return `<tr>
-                            <td class="${row[0].isMarked ? 'bg-danger' : ''}">${row[0].value}</td>
-                            <td class="${row[1].isMarked ? 'bg-danger' : ''}">${row[1].value}</td>
-                            <td class="${row[2].isMarked ? 'bg-danger' : ''}">${row[2].value}</td>
-                            <td class="${row[3].isMarked ? 'bg-danger' : ''}">${row[3].value}</td>
-                            <td class="${row[4].isMarked ? 'bg-danger' : ''}">${row[4].value}</td>
+                            ${row.map(cell => `<td class="${cell.isMarked ? 'bg-danger' : ''}">${cell.value}</td>`).join('')}
                         </tr>`;
                     }).join('')}
                     </tbody>
                     <tfoot class="${card.luckyCard ? 'table-success' : ''}">
-                        <td colspan=5>${card.luckyCard ? 'Lucky Card!' : '&nbsp;'}</td>
+                        <td colspan=5>${card.luckyCard ? `Lucky Card! (Card #${index+1})` : '&nbsp;'}</td>
                     </tfoot>
                 </table>
             </div>`;
@@ -205,27 +215,21 @@ function render() {
     luckyCardsPlaceholderElem.innerHTML = luckyCards.map((luckyCard) => {
         return `<table class="table table-bordered text-center">
             <thead class="table-primary">
-                <th>B</th>
-                <th>I</th>
-                <th>N</th>
-                <th>G</th>
-                <th>O</th>
+                <th>B</th><th>I</th><th>N</th><th>G</th><th>O</th>
             </thead>
             <tbody>
                 ${luckyCard.map((row) => {
                     return `<tr>
-                        <td class="${row[0] ? 'bg-danger' : ''}">&nbsp;</td>
-                        <td class="${row[1] ? 'bg-danger' : ''}">&nbsp;</td>
-                        <td class="${row[2] ? 'bg-danger' : ''}">&nbsp;</td>
-                        <td class="${row[3] ? 'bg-danger' : ''}">&nbsp;</td>
-                        <td class="${row[4] ? 'bg-danger' : ''}">&nbsp;</td>
+                        ${row.map(cell => `<td class="${cell ? 'bg-danger' : ''}">&nbsp;</td>`).join('')}
                     </tr>`;
                 }).join('')}
             </tbody>
         </table>`;
     }).join('');
-    
-    document.getElementById('drawnBallsPlaceholder').innerHTML = nabola.map((bola) => `<span class="badge bg-primary mb-1">${bola.letter}<br>${bola.number}</span>`).join(' ');
+
+    document.getElementById('drawnBallsPlaceholder').innerHTML = nabola.map((bola) => 
+        `<span class="badge bg-primary mb-1">${bola.letter}<br>${bola.number}</span>`
+    ).join(' ');
 }
 
 /**
@@ -241,24 +245,48 @@ numberOfCardsInput.addEventListener('change', (event) => {
     nabola = [];
     tambiolo.reset();
     drawBtn.removeAttribute('disabled');
+    rollBtn.removeAttribute('disabled');
+    numberOfCardsInput.removeAttribute('disabled');
     render();
 });
-
 
 rollBtn.addEventListener('click', () => {
     tambiolo.roll();
 });
 
 drawBtn.addEventListener('click', () => {
-    alert('Complete this function draw a ball from tambiolo.');
-    /**
-     * Steps to complete
-     * 1. draw a ball from tambiolo
-     * 2. add drawn ball to nabola
-     * 3. check all cards with cells is marked
-     * 4. check lucky cards BINGO (if any)
-     * 5. render the page
-     */
+    const ball = tambiolo.draw();
+
+    if (!ball) {
+        alert("No more balls to draw.");
+        drawBtn.setAttribute("disabled", true);
+        return;
+    }
+
+    nabola.push(ball);
+
+    const columnMap = { B: 0, I: 1, N: 2, G: 3, O: 4 };
+    const colIndex = columnMap[ball.letter];
+
+    cards.forEach(card => {
+        for (let i = 0; i < 5; i++) {
+            const cell = card.rows[i][colIndex];
+            if (cell.value === ball.number) {
+                cell.isMarked = true;
+            }
+        }
+    });
+
+    checkLuckyCards();
+    render();
+
+    const winnerIndex = cards.findIndex(card => card.luckyCard);
+    if (winnerIndex !== -1) {
+        alert(`🎉 We have a winner! Card #${winnerIndex + 1}`);
+        drawBtn.setAttribute("disabled", true);
+        rollBtn.setAttribute("disabled", true);
+        numberOfCardsInput.setAttribute("disabled", true);
+    }
 });
 
 render();
