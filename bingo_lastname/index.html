@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My BINGO Game (LastName, FirstName)</title>
+    <title>My BINGO Game (Dulnuan, Jaquidel)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
         integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -17,47 +17,88 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <style>
+
+    .bg-purple {
+      background-color: #6f42c1 !important;
+      color: white !important;
+    }
+    body {
+      background: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+    .card {
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    table {
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th {
+      background: #0d6efd !important;
+      color: white;
+    }
+    .badge {
+      font-size: 1rem;
+      padding: 0.6em;
+    }
+  </style>
+
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="form-floating mt-3 mb-3">
-                    <input type="number" class="form-control" id="numberOfCards">
-                    <label for="numberOfCards">Number of Cards</label>
-                </div>
-                <div id="cardsPlaceholder">
-                    <!-- Bingo Cards Placeholder -->
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="btn-group form-control mt-3 mb-3" role="group">
-                    <button type="button" class="btn btn-primary" id="roll">Roll</button>
-                    <button type="button" class="btn btn-success" id="draw">Draw</button>
-                </div>
-                <div class="card mb-3">
-                    <div class="card-header">
-                        Drawn Balls
-                    </div>
-                    <div class="card-body">
-                        <div id="drawnBallsPlaceholder"></div>  
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        Lucky Cards
-                    </div>
-                    <div class="card-body">
-                        <div id="luckyCardsPlaceholder">
-                            <!-- Lucky Cards Templates Placeholder -->
-                        </div>  
-                    </div>
-                </div>
-            </div>
+  <div class="container py-4">
+    <h1 class="text-center mb-4 text-primary fw-bold">🎉 My Bingo Game 🎉</h1>
+    <div class="row">
+
+      <div class="col-md-8">
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" id="numberOfCards" min="1" value="1">
+          <label for="numberOfCards">Number of Cards</label>
         </div>
+        <div id="cardsPlaceholder" class="mb-3"></div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="btn-group form-control mb-3" role="group">
+          <button type="button" class="btn btn-primary" id="roll">Roll</button>
+          <button type="button" class="btn btn-success" id="draw">Draw</button>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-header fw-bold">🎲 Drawn Balls</div>
+          <div class="card-body">
+            <div id="drawnBallsPlaceholder"></div>  
+          </div>
+        </div>
+
+        <div class="card mb-3">
+          <div class="card-header fw-bold">🍀 Lucky Cards</div>
+          <div class="card-body">
+            <div id="luckyCardsPlaceholder"></div>  
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header fw-bold">🏆 Winner History</div>
+          <div class="card-body">
+            <table class="table table-sm table-bordered">
+              <thead class="table-secondary">
+                <tr><th>Round</th><th>Winners</th></tr>
+              </thead>
+              <tbody id="historyPlaceholder"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
     <script src="scripts/bingo.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 </body>
 
-</html>row
+</html>
