@@ -15,6 +15,7 @@ SPEAKER: **MEDRANO, Dave H.**
 - BOTAY, Yesha Nicka D.
 - BUSTAMANTE, Blessed Joshua G.
 - CALDERON, Lorenz M.
+- CUYANGAN, Lryn C.
 - DAMUGO, Sebastian L.
 - DAPDAPOG, Sylvester A.
 - DEVERA, Renand D.
