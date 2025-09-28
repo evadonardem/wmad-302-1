@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My BMI Calculator (Bustamante, Blessed Joshua)</title>
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+    crossorigin="anonymous" />
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    crossorigin="anonymous" />
+
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #f1f1f1;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .custom-card, .legend-card {
+      border-radius: 16px;
+      background: #1c1c1c;
+      color: #f1f1f1;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+      text-align: center;
+    }
+
+    .legend-card {
+      margin-top: 15px;
+    }
+
+    .legend-card ul {
+      padding-left: 0;
+    }
+
+    .legend-card ul li {
+      border: none;
+      font-weight: 500;
+      text-align: center;
+      background: transparent;
+      color: #ddd;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2575fc, #6a11cb);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+    }
+
+    input.form-control {
+      background: #2a2a2a;
+      border: 1px solid #444;
+      color: #fff;
+    }
+
+    input.form-control:focus {
+      background: #333;
+      border-color: #6a11cb;
+      color: #fff;
+      box-shadow: 0 0 5px rgba(106, 17, 203, 0.6);
+    }
+
+    #bmiResult {
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container d-flex justify-content-center">
+    <div class="col-md-5">
+      
+      <div class="card custom-card p-4 mb-3">
+        <h3 class="mb-3 text-info">
+          <i class="fa-solid fa-calculator"></i> BMI Calculator
+        </h3>
+
+        <form id="bmiForm">
+          <div class="mb-3">
+            <label for="weight" class="form-label d-block">
+              <i class="fa-solid fa-weight-scale"></i> Weight (kg)
+            </label>
+            <input type="number" step="0.1" class="form-control text-center" id="weight" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="height" class="form-label d-block">
+              <i class="fa-solid fa-ruler-vertical"></i> Height (m)
+            </label>
+            <input type="number" step="0.01" placeholder="e.g. 1.75" class="form-control text-center" id="height" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">
+            <i class="fa-solid fa-calculator"></i> Calculate
+          </button>
+
+        </form>
+        <p id="bmiResult" class="mt-3 fw-bold"></p>
+      </div>
+
+      <!-- Legend -->
+      <div class="card legend-card p-3">
+        <h5 class="mb-3 text-light"><i class="fa-solid fa-list"></i> BMI Categories</h5>
+        <ul class="list-group">
+          <li class="list-group-item text-warning bg-transparent">Underweight: &lt; 18.5</li>
+          <li class="list-group-item text-success bg-transparent">Normal: 18.5 – 24.9</li>
+          <li class="list-group-item text-primary bg-transparent">Overweight: 25 – 29.9</li>
+          <li class="list-group-item text-danger bg-transparent">Obese: 30+</li>
+          <li class="list-group-item text-danger bg-transparent">💩 Extreme Obese: 40+</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+
+  <script src="scripts/bmi.js"></script>
+</body>
+</html>
