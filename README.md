@@ -25,4 +25,5 @@ SPEAKER: **MEDRANO, Dave H.**
 - NAVALTA, Ysrael C.
 - RIVERA, Bhenny Benlor D.
 - SIGUE, Kelvin Clyde Q.
+- TAKENG, Yesha Karyle A.
 - VISAYA, Freddie
