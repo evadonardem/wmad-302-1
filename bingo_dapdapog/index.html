@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My BINGO Game (Dapdapog, Sylvester)</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <div class="container mt-3">
+    <div class="row align-items-start">
+      <!-- ✅ Left: Goal Patterns -->
+      <div class="col-md-8">
+        <div id="goalPatternsPlaceholder" class="mb-3"></div>
+      </div>
+
+      <!-- ✅ Right: Controls -->
+      <div class="col-md-4">
+        <div class="btn-group w-100 mb-3" role="group">
+          <button type="button" class="btn btn-success" id="roll">Roll</button>
+          <button type="button" class="btn btn-primary" id="draw">Draw</button>
+          <button type="button" class="btn btn-warning" id="reset">Reset</button>
+        </div>
+        <div class="card">
+          <div class="card-header">Drawn Balls</div>
+          <div class="card-body">
+            <div id="drawnBallsPlaceholder"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ Number of cards input below -->
+    <div class="form-floating mt-3 mb-3">
+      <input type="number" class="form-control" id="numberOfCards" min="1" max="10" value="1">
+      <label for="numberOfCards">Number of Cards</label>
+    </div>
+
+    <!-- ✅ Bingo cards area -->
+    <div id="cardsPlaceholder"></div>
+  </div>
+
+  <script src="scripts/bingo.js"></script>
+</body>
+
+</html>
