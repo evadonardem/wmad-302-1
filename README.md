@@ -15,3 +15,4 @@ SPEAKER: **MEDRANO, Dave H.**
 - DAMUGO, Sebastian L.
 - DEVERA, Renand D.
 - EBES, Peniel Craux B.
+- GODOY, Josie C.
