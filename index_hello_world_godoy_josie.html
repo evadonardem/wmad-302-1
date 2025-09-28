@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello! World - Josie Godoy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Hello! World - Josie Godoy</a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+
+        <div class="row mb-3">
+            <div class="col-md-5 col-sm-12">
+                <label for="nameInput" class="form-label">What is your name?</label>
+            </div>
+            <div class="col-md-7 col-sm-12">
+                <input type="text" class="form-control" id="nameInput">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-5 col-sm-12">
+                <label for="birthdate" class="form-label">When is your birthdate?</label>
+            </div>
+            <div class="col-md-7 col-sm-12">
+                <input type="date" class="form-control" id="birthdate">
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary mb-3" id="register-btn">Register</button>
+
+        <div class="alert" role="alert" style="display:none;">
+            Welcome to the site! <strong id="nameDisplay"></strong>.
+            You're qualified to proceed given legal age: <strong id="age"></strong>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById('register-btn').addEventListener('click', function () {
+            const name = document.getElementById('nameInput').value;
+            const birthdate = new Date(document.getElementById('birthdate').value);
+            const today = new Date();
+
+            let age = today.getFullYear() - birthdate.getFullYear();
+            const monthDiff = today.getMonth() - birthdate.getMonth();
+
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthdate.getDate())) {
+                age--;
+            }
+
+            const alertBox = document.querySelector('.alert');
+            alertBox.classList.remove('alert-success', 'alert-danger');
+            alertBox.style.display = 'block';
+
+            document.getElementById('nameDisplay').textContent = name;
+            document.getElementById('age').textContent = age;
+
+            alertBox.classList.add(age >= 18 ? 'alert-success' : 'alert-danger');
+        });
+    </script>
+</body>
+
+</html>
