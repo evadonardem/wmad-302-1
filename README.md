@@ -20,3 +20,4 @@ SPEAKER: **MEDRANO, Dave H.**
 - GODOY, Josie C.
 - NAVALTA, Ysrael C.
 - RIVERA, Bhenny Benlor D.
+- VISAYA, Freddie
