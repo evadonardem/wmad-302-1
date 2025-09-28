@@ -20,4 +20,5 @@ SPEAKER: **MEDRANO, Dave H.**
 - GODOY, Josie C.
 - NAVALTA, Ysrael C.
 - RIVERA, Bhenny Benlor D.
+- SIGUE, Kelvin Clyde Q.
 - VISAYA, Freddie
