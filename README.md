@@ -11,6 +11,7 @@ SPEAKER: **MEDRANO, Dave H.**
 ### PARTICIPANTS:
 - ACOSTA, Aldrin Jay M.
 - BALA-OY, Rhode B.
+- BANDAO, Jsa C.
 - BASILIO, Clint Kycer C.
 - BOTAY, Yesha Nicka D.
 - BUSTAMANTE, Blessed Joshua G.
