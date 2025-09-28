@@ -25,6 +25,7 @@ SPEAKER: **MEDRANO, Dave H.**
 - GODOY, Josie C.
 - GULLUNAN, Jemar Brent S.
 - HUNAS, Charnel Jho
+- KIS-ING, Joe B.
 - MONTES,Zichri Uel P.
 - NAVALTA, Ysrael C.
 - RIVERA, Bhenny Benlor D.
