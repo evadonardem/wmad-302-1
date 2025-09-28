@@ -9,4 +9,23 @@ SPEAKER: **MEDRANO, Dave H.**
 ---
 
 ### PARTICIPANTS:
-- Cuyangan, Lryn C.
+- ACOSTA, Aldrin Jay M.
+- BALA-OY, Rhode B.
+- BASILIO, Clint Kycer C.
+- BOTAY, Yesha Nicka D.
+- BUSTAMANTE, Blessed Joshua G.
+- CALDERON, Lorenz M.
+- CUYANGAN, Lryn C.
+- DAMUGO, Sebastian L.
+- DAPDAPOG, Sylvester A.
+- DEVERA, Renand D.
+- DULNUAN, Jaquidel S.
+- EBES, Peniel Craux B.
+- GODOY, Josie C.
+- HUNAS, Charnel Jho
+- MONTES,Zichri Uel P.
+- NAVALTA, Ysrael C.
+- RIVERA, Bhenny Benlor D.
+- SIGUE, Kelvin Clyde Q.
+- TAKENG, Yesha Karyle A.
+- VISAYA, Freddie
