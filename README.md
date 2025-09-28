@@ -9,4 +9,7 @@ SPEAKER: **MEDRANO, Dave H.**
 ---
 
 ### PARTICIPANTS:
-- Ebes, Peniel Craux B.
+- ACOSTA, Aldrin Jay M.
+- CALDERON, Lorenz M.
+- DAMUGO, Sebastian L.
+- EBES, Peniel Craux B.
