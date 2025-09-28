@@ -34,3 +34,4 @@ SPEAKER: **MEDRANO, Dave H.**
 - TAKENG, Yesha Karyle A.
 - TIMATIM, Jibery T.
 - VISAYA, Freddie
+
