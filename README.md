@@ -22,6 +22,7 @@ SPEAKER: **MEDRANO, Dave H.**
 - EBES, Peniel Craux B.
 - GODOY, Josie C.
 - HUNAS, Charnel Jho
+- MONTES,Zichri Uel P.
 - NAVALTA, Ysrael C.
 - RIVERA, Bhenny Benlor D.
 - SIGUE, Kelvin Clyde Q.
