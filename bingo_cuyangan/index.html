@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My BINGO Game (Cuyangan, Lryn)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
+        integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+        integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+        background: linear-gradient(135deg, #9dacdd 0%, #9dacdd 100%);
+        }
+        .bingo-header {
+            background: linear-gradient(90deg, #6366f1 0%, #38bdf8 100%);
+            color: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 16px rgba(99,102,241,0.12);
+            padding: 28px 0 18px 0;
+            margin-bottom: 32px;
+            letter-spacing: 2px;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+        }
+        #cardsPlaceholder {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        #drawnBallsPlaceholder {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        min-height: 60px;
+        background: #f1f5f9;
+        border-radius: 8px;
+        padding: 10px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+        #luckyCardsPlaceholder {
+            background: #fff;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+        .lucky-card-template {
+        border: 2px dashed #38bdf8;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(99,102,241,0.08);
+        margin-bottom: 18px;
+        padding: 8px;
+        background: #f8fafc;
+        transition: box-shadow 0.2s;
+        }
+        .lucky-card-template:hover {
+            box-shadow: 0 4px 16px rgba(99,102,241,0.18);
+        }
+        .lucky-card-template .table {
+            margin-bottom: 0;
+        }
+        .card-header {
+            background: linear-gradient(90deg, #6366f1 0%, #38bdf8 100%);
+            color: #fff;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .table-bordered th, .table-bordered td {
+            border: 2px solid #6366f1 !important;
+        }
+        .table-primary th {
+            background-color: #e0e7ff !important;
+            color: #6366f1 !important;
+        }
+        .badge.bg-primary {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 1.1em;
+        padding: 0;
+        margin: 4px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    </style>
+</head>
+    <h1 class="bingo-header text-center my-4">
+    <i class="fa-solid fa-chess-board me-2"></i>
+    Bingo Game
+    </h1>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-floating mt-3 mb-3">
+                    <input type="number" class="form-control" id="numberOfCards">
+                    <label for="numberOfCards">Number of Cards</label>
+                </div>
+                <div id="cardsPlaceholder">
+                    <h2 class="text-center mb-2" style="color:#6366f1;">Your Bingo Cards</h2>
+                    <p class="text-center mb-4" style="color:#555;">Each card is randomly generated. Mark the numbers as they are drawn!</p>
+                    <!-- Bingo Cards Placeholder -->
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="btn-group form-control mt-3 mb-3" role="group">
+                    <button type="button" class="btn btn-primary" id="roll">Roll</button>
+                    <button type="button" class="btn btn-success" id="draw">Draw</button>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header text-center">
+                        Drawn Balls
+                    </div>
+                    <div class="card-body">
+                        <div id="drawnBallsPlaceholder"></div>  
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header text-center">
+                        Lucky Cards
+                    </div>
+                    <div class="card-body">
+                        <div id="luckyCardsPlaceholder">
+                            <!-- Lucky Cards Templates Placeholder -->
+                        </div>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/bingo.js"></script>
+
+<footer class="text-center py-3 mt-4" style="background: #e0e7ff; color: #6366f1; border-top: 2px solid #6366f1;">
+&copy; 2025 Bingo Game | Made by Cuyangan, Lryn
+</footer>
+</body>
+
+</html>

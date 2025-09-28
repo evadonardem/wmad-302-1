@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My BINGO Game (Bustamante, Joshua)</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    crossorigin="anonymous" />
+
+  <style>
+/* ------------------------------
+   General Layout
+--------------------------------*/
+body {
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fdf6f0, #f5e6e0);
+  margin: 0;
+  padding: 20px;
+  color: #4b0000; /* dark maroon text */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+/* ------------------------------
+   Title
+--------------------------------*/
+.bingo-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #800000; /* primary maroon */
+  text-shadow: 1px 1px 3px #d4af37; /* golden accent */
+}
+
+/* ------------------------------
+   Info Message
+--------------------------------*/
+#infoMessage {
+  font-weight: bold;
+  color: #800000; /* maroon */
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* ------------------------------
+   Buttons
+--------------------------------*/
+button {
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin: 5px 0;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #800000;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #5a0000;
+}
+
+.btn-success {
+  background-color: #d4af37; /* gold */
+  color: #4b0000;
+}
+
+.btn-success:hover {
+  background-color: #bfa02f;
+  color: #330000;
+}
+
+/* ------------------------------
+   Player Cards Tables
+--------------------------------*/
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 15px;
+  border: 2px solid #800000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  border: 1px solid #800000;
+  padding: 12px;
+  text-align: center;
+  font-weight: bold;
+}
+
+th {
+  background-color: #800000;
+  color: white;
+  font-size: 1.1rem;
+}
+
+tfoot td {
+  background-color: #f9e9e9;
+  font-style: italic;
+}
+
+/* ------------------------------
+   Marked Cells
+--------------------------------*/
+.bg-danger {
+  background-color: #d4af37 !important; /* golden highlight */
+  color: #800000;
+  font-weight: bold;
+}
+
+.table-success td {
+  background-color: #ffd966 !important; /* lighter gold for winning row/col */
+  color: #5a0000;
+  font-weight: bold;
+}
+
+/* ------------------------------
+   Cards Styling
+--------------------------------*/
+.card {
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  border: 2px solid #800000;
+}
+
+.card-header {
+  background-color: #800000;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+/* ------------------------------
+   Drawn Balls
+--------------------------------*/
+#drawnBallsPlaceholder span {
+  display: inline-block;
+  min-width: 50px;
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  background-color: #800000;
+}
+
+/* ------------------------------
+   Lucky Cards Tables (Right Panel)
+--------------------------------*/
+#luckyCardsPlaceholder {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+#luckyCardsPlaceholder table {
+  width: 100%;
+  max-width: 150px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  border: 2px solid #800000;
+}
+
+#luckyCardsPlaceholder th,
+#luckyCardsPlaceholder td {
+  border: 1px solid #800000;
+  padding: 6px;
+  text-align: center;
+}
+
+#luckyCardsPlaceholder th {
+  background-color: #b22222; /* lighter maroon for contrast */
+  color: white;
+}
+
+#luckyCardsPlaceholder td.bg-danger {
+  background-color: #d4af37 !important;
+  color: #800000;
+  font-weight: bold;
+}
+
+/* ------------------------------
+   Winner Modal
+--------------------------------*/
+#winnerModal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  align-items: center;
+  justify-content: center;
+}
+
+#winnerModal .modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  max-width: 400px;
+  margin: 0 auto;
+  border: 3px solid #800000;
+}
+
+#winnerModal .modal-header {
+  background-color: #800000;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 12px 12px 0 0;
+}
+
+#winnerMessage {
+  font-size: 1.5rem;
+  color: #800000;
+  margin: 10px 0;
+}
+
+/* ------------------------------
+   Responsive adjustments
+--------------------------------*/
+@media (max-width: 768px) {
+  #luckyCardsPlaceholder table {
+    max-width: 120px;
+  }
+}
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="bingo-title"><i class="fa-solid fa-chess-board"></i> BINGO Game ni Juswa </h1>
+    <div class="row">
+      <!-- Left side: Bingo Cards -->
+      <div class="col-md-8">
+        <div class="form-floating mt-3 mb-3">
+          <input type="number" min="1" class="form-control" id="numberOfCards">
+          <label for="numberOfCards">Number of Cards</label>
+        </div>
+
+        <!-- 🔹 Reminder stays at top -->
+        <p id="infoMessage">(Pick how many cards you want to play with first before you start drawing.)</p>
+
+        <div id="cardsPlaceholder">
+          <!-- Bingo Cards Placeholder -->
+        </div>
+      </div>
+
+      <!-- Right side: Controls, Drawn Balls, Lucky Cards -->
+      <div class="col-md-4">
+        <div class="btn-group form-control mt-3 mb-3" role="group">
+          <button type="button" class="btn btn-primary" id="roll"><i class="fa-solid fa-dice"></i> Roll</button>
+          <button type="button" class="btn btn-success" id="draw"><i class="fa-solid fa-ticket"></i> Draw</button>
+        </div>
+        <div class="card mb-3">
+          <div class="card-header">
+            🎱 Drawn Balls
+          </div>
+          <div class="card-body text-center">
+            <div id="drawnBallsPlaceholder" class="d-flex flex-wrap justify-content-center gap-2"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            🍀 Lucky Cards
+          </div>
+          <div class="card-body text-center">
+            <div id="luckyCardsPlaceholder">
+              <!-- Lucky Cards Templates Placeholder -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Winner Modal -->
+<div class="modal fade" id="winnerModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title">BINGO WINNER!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <h2 id="winnerMessage" class="text-success fw-bold"></h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <script src="scripts/bingo.js"></script>
+</body>
+
+</html>
+
+<!-- 
+Additional Changes in in the code:
+
+1. Added a function to generate a single Bingo card with random numbers per column
+- Ensures correct ranges for B (1–15), I (16–30), N (31–45), G (46–60), O (61–75)
+- Also places a "FREE" space in the middle.
+
+
+2. Added a function to simulate rolling balls (1–75) without duplicates
+- Stores drawn numbers in an array
+- Displays drawn numbers in the "Drawn Balls" panel.
+
+
+3. Added a function to highlight matching numbers on all cards
+- When a number is drawn, all matching <td> elements are marked (e.g., with Bootstrap "bg-success").
+
+
+4. Added a function to check winning conditions for each card
+- Checks for a complete row, column, or diagonal of marked cells.
+
+
+5. Added a function to stop the game when a card wins
+- Prevents further draws
+- Shows an alert: "Card X wins!"
+- Adds the winning card into the "Lucky Cards" panel.
+
+
+6. Added event listeners for "Roll" and "Draw" buttons
+- "Roll" creates new cards based on the input
+- "Draw" pulls the next random ball and checks for winners.
+
+-->
+
+
+
