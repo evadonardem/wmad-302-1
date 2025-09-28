@@ -9,4 +9,8 @@ SPEAKER: **MEDRANO, Dave H.**
 ---
 
 ### PARTICIPANTS:
-- Devera. Renand D.
+- ACOSTA, Aldrin Jay M.
+- CALDERON, Lorenz M.
+- DAMUGO, Sebastian L.
+- DEVERA, Renand D.
+- EBES, Peniel Craux B.
