@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My BINGO Game (Kis-Ing, Joe)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <button id="reset" class="btn btn-secondary ms-2">Reset</button>
+
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-floating mt-3 mb-3">
+                    <input type="number" class="form-control" id="numberOfCards" min="1" max="10" value="1" />
+                    <label for="numberOfCards">Number of Cards (1-10)</label>
+                </div>
+                <div id="cardsPlaceholder">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="btn-group form-control mt-3 mb-3" role="group">
+                    <button type="button" class="btn btn-primary" id="roll">Roll</button>
+                    <button type="button" class="btn btn-success" id="draw">Draw</button>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        Drawn Balls
+                    </div>
+                    <div class="card-body">
+                        <div id="drawnBallsPlaceholder"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        Lucky Cards
+                    </div>
+                    <div class="card-body" id="luckyCardsPlaceholder">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="scripts/bingo.js"></script>
+</body>
+
+</html>
