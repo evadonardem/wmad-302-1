@@ -9,6 +9,7 @@ SPEAKER: **MEDRANO, Dave H.**
 ---
 
 ### PARTICIPANTS:
-- DAMUGO, Sebastian L.
-- CALDERON, Lorenz M.
 - ACOSTA, Aldrin Jay M.
+- CALDERON, Lorenz M.
+- DAMUGO, Sebastian L.
+- EBES, Peniel Craux B.
