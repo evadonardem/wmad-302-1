@@ -23,6 +23,7 @@ SPEAKER: **MEDRANO, Dave H.**
 - DULNUAN, Jaquidel S.
 - EBES, Peniel Craux B.
 - GODOY, Josie C.
+- GULLUNAN, Jemar Brent S.
 - HUNAS, Charnel Jho
 - MONTES,Zichri Uel P.
 - NAVALTA, Ysrael C.
