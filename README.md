@@ -17,4 +17,5 @@ SPEAKER: **MEDRANO, Dave H.**
 - DEVERA, Renand D.
 - EBES, Peniel Craux B.
 - GODOY, Josie C.
+- NAVALTA, Ysrael C.
 - RIVERA, Bhenny Benlor D.
