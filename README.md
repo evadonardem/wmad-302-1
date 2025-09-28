@@ -22,6 +22,7 @@ SPEAKER: **MEDRANO, Dave H.**
 - DEVERA, Renand D.
 - DULNUAN, Jaquidel S.
 - EBES, Peniel Craux B.
+- FERNANDEZ, Ronie
 - GODOY, Josie C.
 - GULLUNAN, Jemar Brent S.
 - HUNAS, Charnel Jho
