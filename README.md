@@ -16,6 +16,7 @@ SPEAKER: **MEDRANO, Dave H.**
 - DAMUGO, Sebastian L.
 - DAPDAPOG, Sylvester A.
 - DEVERA, Renand D.
+- DULNUAN, Jaquidel S.
 - EBES, Peniel Craux B.
 - GODOY, Josie C.
 - NAVALTA, Ysrael C.
