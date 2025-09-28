@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎉 Realistic BINGO Game (Timatim_Jibery)</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+    crossorigin="anonymous" />
+</head>
+
+<body>
+  <div class="container mt-3">
+    <h1 class="text-center text-danger mb-4 fw-bold">🎲 Welcome to Timatim Jibery’s BINGO 🎲</h1>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-floating mt-3 mb-3">
+          <input type="number" class="form-control" id="numberOfCards" placeholder="Enter number of cards">
+          <label for="numberOfCards">Number of Cards</label>
+        </div>
+        <div id="cardsPlaceholder">
+          <!-- Bingo Cards Placeholder -->
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="btn-group form-control mt-3 mb-3" role="group">
+          <button type="button" class="btn btn-primary" id="roll">Roll</button>
+          <button type="button" class="btn btn-success" id="draw">Draw</button>
+          <button type="button" class="btn btn-warning" id="playAgain" style="display:none;">Play Again</button>
+        </div>
+        <div class="card mb-3 shadow">
+          <div class="card-header fw-bold">
+            Drawn Balls
+          </div>
+          <div class="card-body">
+            <div id="drawnBallsPlaceholder"></div>
+          </div>
+        </div>
+        <div class="card shadow">
+          <div class="card-header fw-bold">
+            Lucky Cards
+          </div>
+          <div class="card-body">
+            <div id="luckyCardsPlaceholder">
+              <!-- Lucky Cards Templates Placeholder -->
+            </div>
+            <div id="winnerMessage" class="alert alert-success text-center mt-3" style="display:none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts/bingo.js"></script>
+</body>
+
+</html>

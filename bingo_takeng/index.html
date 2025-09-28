@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My BINGO Game (Takeng, Yesha Karyle)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
+        integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+        integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body style="background-color: peachpuff;">
+    <div class="floating-circles">
+        <div class="floating-circle" style="width: 50px; height: 50px; top: 10%; left: 10%; animation-delay: 0s;"></div>
+        <div class="floating-circle" style="width: 80px; height: 80px; top: 20%; right: 15%; animation-delay: 2s;"></div>
+        <div class="floating-circle" style="width: 30px; height: 30px; top: 60%; left: 20%; animation-delay: 4s;"></div>
+        <div class="floating-circle" style="width: 60px; height: 60px; bottom: 20%; right: 20%; animation-delay: 1s;"></div>
+        <div class="floating-circle" style="width: 40px; height: 40px; bottom: 30%; left: 70%; animation-delay: 3s;"></div>
+    </div>
+    
+    <div class="container">
+        <h1 class="text-center mt-4 mb-4">🎊 BINGO Game 🎊</h1>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-floating mt-3 mb-3">
+                    <input type="number" class="form-control" id="numberOfCards" min="1" max="1000" value="1">
+                    <label for="numberOfCards">Number of Cards</label>
+                </div>
+                <div id="cardsPlaceholder">
+                    <!-- Bingo Cards Placeholder -->
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="btn-group form-control mt-3 mb-3" role="group">
+                    <button type="button" class="btn btn-primary" id="roll">Roll</button>
+                    <button type="button" class="btn btn-success" id="draw">Draw</button>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        Drawn Balls
+                    </div>
+                    <div class="card-body">
+                        <div id="drawnBallsPlaceholder"></div>  
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        Lucky Cards
+                    </div>
+                    <div class="card-body">
+                        <div id="luckyCardsPlaceholder">
+                            <!-- Lucky Cards Templates Placeholder -->
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/bingo.js"></script>
+</body>
+
+</html>
