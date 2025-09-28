@@ -31,4 +31,5 @@ SPEAKER: **MEDRANO, Dave H.**
 - RIVERA, Bhenny Benlor D.
 - SIGUE, Kelvin Clyde Q.
 - TAKENG, Yesha Karyle A.
+- TIMATIM, Jibery T.
 - VISAYA, Freddie
