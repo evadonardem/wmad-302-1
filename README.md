@@ -9,4 +9,10 @@ SPEAKER: **MEDRANO, Dave H.**
 ---
 
 ### PARTICIPANTS:
- - GODOY, Josie C.
+- ACOSTA, Aldrin Jay M.
+- BUSTAMANTE, Blessed Joshua G.
+- CALDERON, Lorenz M.
+- DAMUGO, Sebastian L.
+- DEVERA, Renand D.
+- EBES, Peniel Craux B.
+- GODOY, Josie C.
