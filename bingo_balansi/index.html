@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My BINGO Game Balansi, Rhys Alecksie</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
+        integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+        integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #e9ecef 100%);
+            min-height: 100vh;
+            font-family: 'SF Pro Display', 'Segoe UI', Arial, sans-serif;
+            color: #222;
+        }
+        .apple-title {
+            letter-spacing: -1px;
+        }
+        .apple-card {
+            border-radius: 1.5rem;
+            background: #fff;
+            box-shadow: 0 2px 16px 0 rgba(60,60,60,0.07);
+            border: 1px solid #e5e7eb;
+        }
+        .apple-card-header {
+            background: none;
+            border: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+        }
+        .apple-placeholder {
+            border-radius: 1.5rem;
+            background: #fff;
+            box-shadow: 0 2px 16px 0 rgba(60,60,60,0.07);
+            border: 1px solid #e5e7eb;
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .apple-lucky {
+            border-radius: 1rem;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .apple-btn {
+            border-radius: 999px;
+            box-shadow: 0 2px 8px 0 rgba(60,60,60,0.07);
+            font-size: 1.1rem;
+            padding: 0.5rem 2rem;
+            display: flex;
+            align-items: center;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .apple-btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 1px 4px 0 rgba(60,60,60,0.10);
+        }
+        .form-floating .form-control {
+            border-radius: 999px;
+            background: #f5f6fa;
+            box-shadow: 0 1px 4px 0 rgba(60,60,60,0.04);
+        }
+    </style>
+</head>
+
+
+
+<body>
+    <div class="container py-5">
+        <div class="row g-5 align-items-start">
+            <div class="col-lg-8">
+                <div class="mb-4">
+                    <h1 class="fw-bold display-5 mb-2 apple-title">Bingo</h1>
+                    <p class="lead text-secondary mb-0">Bingo Game</p>
+                </div>
+                <div class="form-floating mb-4" style="max-width: 300px;">
+                    <input type="number" class="form-control" id="numberOfCards" placeholder="Number of Cards" min="1">
+                    <label for="numberOfCards">Number of Cards</label>
+                </div>
+                <div id="cardsPlaceholder" class="apple-placeholder p-5 mb-4">
+                    <i class="fa-regular fa-rectangle-list fa-3x text-secondary mb-3"></i>
+                    <h3 class="fw-semibold mb-2">Bingo Cards</h3>
+                    <p class="text-muted">Your Bingo cards will appear here.</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="d-flex gap-3 mb-4">
+                    <button type="button" class="btn btn-primary apple-btn" id="roll">
+                        <i class="fa-solid fa-dice fa-lg me-2"></i> Roll
+                    </button>
+                    <button type="button" class="btn btn-success apple-btn" id="draw">
+                        <i class="fa-solid fa-star fa-lg me-2"></i> Draw
+                    </button>
+                </div>
+                <div class="card apple-card mb-4">
+                    <div class="card-header apple-card-header">
+                        <i class="fa-solid fa-basketball fa-lg me-2"></i> Drawn Balls
+                    </div>
+                    <div class="card-body">
+                        <div id="drawnBallsPlaceholder" class="d-flex flex-wrap gap-2"></div>
+                    </div>
+                </div>
+                <div class="card apple-card">
+                    <div class="card-header apple-card-header">
+                        <i class="fa-solid fa-clover fa-lg me-2"></i> Lucky Cards
+                    </div>
+                    <div class="card-body">
+                        <div id="luckyCardsPlaceholder" class="apple-lucky">
+                            <i class="fa-regular fa-gem fa-2x text-success mb-2"></i>
+                            <h5 class="fw-semibold mb-1">Lucky Cards Templates</h5>
+                            <p class="text-muted mb-0">Your lucky cards will appear here.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/bingo.js"></script>
+</body>
+
+</html>
