@@ -10,6 +10,7 @@ SPEAKER: **MEDRANO, Dave H.**
 
 ### PARTICIPANTS:
 - ACOSTA, Aldrin Jay M.
+- BALA-OY, Rhode B.
 - BOTAY, Yesha Nicka D.
 - BUSTAMANTE, Blessed Joshua G.
 - CALDERON, Lorenz M.
