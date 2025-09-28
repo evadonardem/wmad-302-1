@@ -14,6 +14,7 @@ SPEAKER: **MEDRANO, Dave H.**
 - BUSTAMANTE, Blessed Joshua G.
 - CALDERON, Lorenz M.
 - DAMUGO, Sebastian L.
+- DAPDAPOG, Sylvester A.
 - DEVERA, Renand D.
 - EBES, Peniel Craux B.
 - GODOY, Josie C.
