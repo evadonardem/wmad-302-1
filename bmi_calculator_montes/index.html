@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My BMI Calculator Montes, Zichri</title>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
+        integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+        integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
+
+    <style>
+        body {
+            background-color: #1a0033;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .calculator-container {
+            max-width: 650px;
+            margin: 60px auto;
+            padding: 40px;
+            border-radius: 20px;
+            background: rgba(50, 0, 80, 0.9);
+            box-shadow: 0 0 30px #a200ff;
+        }
+
+        h2 {
+            font-weight: bold;
+            text-shadow: 0 0 12px #ff00ff;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        /* Neon slider style */
+        .form-range::-webkit-slider-thumb {
+            background: #39ff14;
+            box-shadow: 0 0 8px #39ff14;
+        }
+        .form-range::-moz-range-thumb {
+            background: #39ff14;
+            box-shadow: 0 0 8px #39ff14;
+        }
+
+        .result-box {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 18px #ff00ff;
+        }
+
+        .bmi-icon {
+            font-size: 70px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .bmi-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .bmi-category {
+            font-size: 1.3rem;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container calculator-container text-center">
+        <h2 class="mb-4">BMI Calculator</h2>
+
+        <!-- Height -->
+        <div class="mb-4">
+            <label for="height" class="form-label">Height (cm)</label>
+            <input type="range" class="form-range" min="100" max="220" id="height" value="170" oninput="updateValues()">
+            <div><span id="heightValue">170</span> cm</div>
+        </div>
+
+        <!-- Weight -->
+        <div class="mb-4">
+            <label for="weight" class="form-label">Weight (kg)</label>
+            <input type="range" class="form-range" min="30" max="200" id="weight" value="70" oninput="updateValues()">
+            <div><span id="weightValue">70</span> kg</div>
+        </div>
+
+        <!-- Result -->
+        <div class="result-box">
+            <div id="bmiIcon" class="bmi-icon">
+                <i class="fa-solid fa-dumbbell" style="color:#39ff14;"></i>
+            </div>
+            <div id="bmiResult" class="bmi-value">BMI: 24.2</div>
+            <div id="bmiCategory" class="bmi-category">Normal</div>
+        </div>
+    </div>
+
+    <!-- External JS -->
+    <script src="scripts/bmi.js"></script>
+</body>
+</html>
