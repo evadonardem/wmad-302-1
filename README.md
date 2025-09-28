@@ -19,6 +19,7 @@ SPEAKER: **MEDRANO, Dave H.**
 - DULNUAN, Jaquidel S.
 - EBES, Peniel Craux B.
 - GODOY, Josie C.
+- HUNAS, Charnel Jho
 - NAVALTA, Ysrael C.
 - RIVERA, Bhenny Benlor D.
 - SIGUE, Kelvin Clyde Q.
