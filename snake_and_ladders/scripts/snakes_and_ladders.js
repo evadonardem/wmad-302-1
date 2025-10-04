@@ -1,0 +1,1 @@
+alert("Snake and Ladders Game Loaded");
