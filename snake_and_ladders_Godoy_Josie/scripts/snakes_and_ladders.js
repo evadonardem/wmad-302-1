@@ -291,4 +291,3 @@ rollDiceButton.addEventListener('click', async () => {
         }
         rollDiceButton.disabled = false;
 });
-
