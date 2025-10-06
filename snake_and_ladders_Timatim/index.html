@@ -1,0 +1,297 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snakes and Ladders (Jibery_Timatim)</title>
+
+  <!-- Bootstrap + FontAwesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    html, body {
+      background: #f7f8fa;
+      font-family: 'SF Pro Display', 'Inter', 'Segoe UI', Arial, sans-serif;
+    }
+    .navbar {
+      background: #222 !important;
+    }
+    .container {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+      padding: 32px;
+      margin-top: 32px;
+    }
+    #boardPlaceholder {
+      background-image: url('images/board.jpg');
+      background-size: cover;
+      width: 740px;
+      height: 740px;
+      position: relative;
+    }
+    #dicePlaceholder {
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+    .player-score {
+      border-radius: 12px;
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #fff;
+    }
+    button {
+      border-radius: 12px !important;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><i class="fa fa-gamepad"></i> Snakes & Ladders</a>
+    </div>
+  </nav>
+
+  <div class="container mt-4" id="setupContainer">
+    <h3 class="mb-3">🎮 Choose Number of Players</h3>
+    <div class="d-flex gap-3">
+      <button class="btn btn-primary player-count" data-count="2">2 Players</button>
+      <button class="btn btn-primary player-count" data-count="3">3 Players</button>
+      <button class="btn btn-primary player-count" data-count="4">4 Players</button>
+    </div>
+    <button id="startGameButton" class="btn btn-success mt-4" disabled>Start Game</button>
+  </div>
+
+  <div class="container mt-4 d-none" id="gameContainer">
+    <div class="row">
+      <div class="col-md-9">
+        <h1>Board</h1>
+        <div id="boardPlaceholder">
+          <canvas width="740" height="740"></canvas>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Roll the Dice!</h5>
+            <div id="dicePlaceholder"></div>
+            <hr>
+            <div id="playerScores"></div>
+            <button id="rollDiceButton" class="btn btn-primary w-100 mb-2">Roll Dice</button>
+            <button id="restartButton" class="btn btn-danger w-100" style="display:none;">Start Again</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==============================
+    // Game Logic
+    // ==============================
+
+    class Die {
+      static #sidesToIcon = {
+        1: 'dice-one',
+        2: 'dice-two',
+        3: 'dice-three',
+        4: 'dice-four',
+        5: 'dice-five',
+        6: 'dice-six',
+      };
+      roll() { return Math.floor(Math.random() * 6) + 1; }
+      getIcon(value) { return `<i class="fa fa-${Die.#sidesToIcon[value]}"></i>`; }
+    }
+
+    Die.snakes = { 98: 80, 94: 12, 92: 67, 61: 43, 56: 48, 42: 1, 25: 3 };
+    Die.ladders = { 7: 30, 16: 33, 20: 38, 36: 83, 50: 68, 63: 81, 71: 89, 86: 97 };
+
+    class Player {
+      constructor(name, color) {
+        this.name = name;
+        this.color = color;
+        this.position = 0;
+      }
+    }
+
+    const colors = ['#704e2e', '#709176', '#3b82f6', '#ef4444'];
+
+    let players = [];
+    let currentPlayerIndex = 0;
+    let gameOver = false;
+    const die = new Die();
+
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext('2d');
+    const dicePlaceholder = document.getElementById('dicePlaceholder');
+    const rollDiceButton = document.getElementById('rollDiceButton');
+    const restartButton = document.getElementById('restartButton');
+    const playerScoresDiv = document.getElementById('playerScores');
+
+    // Setup
+    let selectedPlayerCount = 0;
+    const setupContainer = document.getElementById('setupContainer');
+    const gameContainer = document.getElementById('gameContainer');
+    const startGameButton = document.getElementById('startGameButton');
+
+    document.querySelectorAll('.player-count').forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectedPlayerCount = parseInt(btn.dataset.count);
+        document.querySelectorAll('.player-count').forEach(b => b.classList.remove('btn-success'));
+        btn.classList.add('btn-success');
+        startGameButton.disabled = false;
+      });
+    });
+
+    startGameButton.addEventListener('click', () => {
+      setupContainer.classList.add('d-none');
+      gameContainer.classList.remove('d-none');
+      startGame(selectedPlayerCount);
+    });
+
+    function startGame(count) {
+      players = [];
+      for (let i = 0; i < count; i++) {
+        players.push(new Player(`Player ${i + 1}`, colors[i]));
+      }
+      currentPlayerIndex = 0;
+      gameOver = false;
+      dicePlaceholder.innerHTML = '';
+      restartButton.style.display = 'none';
+      rollDiceButton.disabled = false;
+      render();
+    }
+
+    function drawBoard() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+
+    function positionToXY(pos) {
+      const size = 74;
+      let row = Math.floor((pos - 1) / 10);
+      let col = (pos - 1) % 10;
+      if (row % 2 === 1) col = 9 - col;
+      return { x: col * size + size / 2, y: 740 - (row * size + size / 2) };
+    }
+
+    function drawPlayers() {
+      players.forEach((p, i) => {
+        if (p.position === 0) return;
+        const { x, y } = positionToXY(p.position);
+        ctx.beginPath();
+        ctx.arc(x, y, 20 - i * 3, 0, 2 * Math.PI);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = 0.85;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 16px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(p.name.slice(-1), x, y);
+      });
+    }
+
+    function updateScores() {
+      playerScoresDiv.innerHTML = '';
+      players.forEach((p, i) => {
+        const div = document.createElement('div');
+        div.className = 'player-score';
+        div.style.background = p.color;
+        div.textContent = `${p.name}: Square ${p.position}${currentPlayerIndex === i && !gameOver ? ' • Your turn' : ''}`;
+        playerScoresDiv.appendChild(div);
+      });
+    }
+
+    function render() {
+      drawBoard();
+      drawPlayers();
+      updateScores();
+    }
+
+    function animateDiceRoll(finalValue, callback) {
+      let rolls = 10, current = 0;
+      function step() {
+        if (current < rolls) {
+          dicePlaceholder.innerHTML = die.getIcon(Math.floor(Math.random() * 6) + 1);
+          current++;
+          setTimeout(step, 60);
+        } else {
+          dicePlaceholder.innerHTML = die.getIcon(finalValue) + ` <span style="font-size:1.2rem;">${finalValue}</span>`;
+          callback();
+        }
+      }
+      step();
+    }
+
+    function animatePlayerMove(player, start, end, callback) {
+      const path = [];
+      for (let i = start + 1; i <= end; i++) path.push(i);
+      let idx = 0;
+      function step() {
+        if (idx < path.length) {
+          player.position = path[idx];
+          render();
+          idx++;
+          setTimeout(step, 120);
+        } else callback();
+      }
+      step();
+    }
+
+    function handleRoll() {
+      if (gameOver) return;
+      const player = players[currentPlayerIndex];
+      const roll = die.roll();
+      animateDiceRoll(roll, () => {
+        let start = player.position;
+        let target = player.position + roll;
+        if (target > 100) {
+          currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+          render();
+          return;
+        }
+        let finalPos = target;
+        if (Die.snakes[finalPos]) finalPos = Die.snakes[finalPos];
+        if (Die.ladders[finalPos]) finalPos = Die.ladders[finalPos];
+
+        animatePlayerMove(player, start, target, () => {
+          player.position = finalPos;
+          if (player.position === 100) {
+            dicePlaceholder.innerHTML = `<b>${player.name} wins! 🎉</b>`;
+            gameOver = true;
+            rollDiceButton.disabled = true;
+            restartButton.style.display = 'block';
+            return;
+          }
+          currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+          render();
+        });
+      });
+    }
+
+    rollDiceButton.addEventListener('click', handleRoll);
+
+    restartButton.addEventListener('click', () => {
+      // Reset to setup screen
+      gameContainer.classList.add('d-none');
+      setupContainer.classList.remove('d-none');
+      startGameButton.disabled = true;
+      document.querySelectorAll('.player-count').forEach(b => b.classList.remove('btn-success'));
+    });
+  </script>
+</body>
+</html>
