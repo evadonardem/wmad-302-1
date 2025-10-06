@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Snakes and Ladders (Ceasar)</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+
+    <!-- Game Script -->
+    <script src="scripts/snakes_and_ladders.js" defer></script>
+
+    <style>
+        body {
+            background-color: #f0f4fa;
+        }
+
+        h1, h5, label {
+            color: #0a2342; 
+            font-weight: bold;
+        }
+
+        .navbar {
+            background-color: #0a2342 !important; 
+        }
+
+        #boardPlaceholder {
+            background-image: url('images/board.jpg');
+            background-size: cover;
+            position: relative;
+            width: 740px;
+            height: 740px;
+            border: 4px solid #0a2342;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #0a2342;
+        }
+
+        .btn-maroon {
+            background-color: #0a2342;
+            border: none;
+        }
+
+        .btn-maroon:hover {
+            background-color: #163d5c;
+        }
+
+        #currentTurn {
+            text-align: center;
+            background-color: #0a2342;
+            color: white;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        #dicePlaceholder i {
+            font-size: 60px;
+            color: #0a2342;
+        }
+
+        #rolledValue {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0a2342;
+        }
+
+        #playerColorList {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #0a2342;
+        }
+
+        #winnerDisplay {
+            background-color: #0a2342;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-light" href="#">
+                <i class="fa fa-xl fa-gamepad"></i>
+                Snakes & Ladders Game: Ceasar
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Board -->
+            <div class="col-md-8">
+                <h1>Game Board</h1>
+                <div id="boardPlaceholder">
+                    <canvas id="gameCanvas" width="740" height="740"></canvas>
+                </div>
+            </div>
+
+            <!-- Game Settings -->
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Setup & Play</h5>
+
+                        <div class="mb-3">
+                            <label for="playerCount" class="form-label">Choose Players</label>
+                            <select id="playerCount" class="form-select">
+                                <option value="2">2 Players</option>
+                                <option value="3">3 Players</option>
+                                <option value="4">4 Players</option>
+                            </select>
+                        </div>
+
+                        <button id="startGameBtn" class="btn btn-maroon w-100 mb-3" style="color: white;">Begin Game</button>
+
+                        <!-- New Rules Button -->
+                        <button id="showRulesBtn" class="btn btn-outline-primary w-100 mb-3" type="button" data-bs-toggle="modal" data-bs-target="#rulesModal">
+                            Show Game Rules
+                        </button>
+
+                        <hr>
+
+                        <div id="currentTurn">Ready to play? Click "Begin Game"!</div>
+
+                        <div class="text-center">
+                            <div id="dicePlaceholder" class="my-2">
+                                <i class="fa fa-dice-one"></i>
+                            </div>
+                            <div id="rolledValue">Press "Roll Dice" to start your turn!</div>
+                            <button id="rollDiceButton" class="btn btn-maroon w-100 mt-3" style="color: white;">Roll Dice</button>
+                        </div>
+
+                        <!-- Player Color List -->
+                        <div id="playerColorList"></div>
+
+                        <!-- Winner Display -->
+                        <div id="winnerDisplay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rules Modal -->
+    <div class="modal fade" id="rulesModal" tabindex="-1" aria-labelledby="rulesModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="rulesModalLabel">Snakes and Ladders - Rules</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <ol>
+              <li>Each player takes turns rolling the dice and moves their token forward by the number shown.</li>
+              <li>If a player lands at the bottom of a ladder, they climb up to the top of the ladder.</li>
+              <li>If a player lands on the head of a snake, they slide down to the tail of the snake.</li>
+              <li>The first player to reach the last square on the board wins the game.</li>
+              <li>If a roll would take a player past the last square, their token does not move.</li>
+            </ol>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS (for modal functionality) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
