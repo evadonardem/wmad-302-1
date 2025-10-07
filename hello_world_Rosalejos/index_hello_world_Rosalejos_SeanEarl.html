@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello_World_Rosalejos</title>
+    <style>
+        body {
+            background-image: url(./images/background.gif);
+            background-size: cover;
+            background-attachment: fixed;
+            font-family: "Press Start 2P", system-ui;
+            color: #e6f0eb;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Hello World! Rosalejos Sean Earl</a>
+        </div>
+    </nav>
+    
+    <div class="container bg-light mt-5 p-4 rounded">
+        <hr />
+        <div class="row">
+            <div class="col-md-5 col-sm-12">
+                <label for="name-input" class="form-label">What is your name</label>
+            </div>
+            <div class="col-md-7 col-sm-12">
+                <input type="text" class="form-control" id="name-input">
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-md-5 col-sm-12">
+                <label for="birthdate" class="form-label">When is your birth date</label>
+            </div>
+            <div class="col-md-7 col-sm-12">
+                <input type="date" class="form-control" id="birthdate">
+            </div>
+        </div>
+
+        <hr />
+
+        <button type="button" class="btn btn-primary form-control" id="register-btn">Register</button>
+
+        <hr />
+        <div class="alert alert-success" role="alert">
+            Welcome to the site! <strong id="name-display"></strong>. 
+            You are <strong id="age-display"></strong> years old.
+        </div>
+    </div>
+    
+    <script>
+        const alertBox = document.querySelector('.alert');
+        alertBox.style.display = 'none';
+
+        document.getElementById('register-btn').addEventListener('click', function() {
+            const name = document.getElementById('name-input').value;
+            const birthdate = new Date(document.getElementById('birthdate').value);
+            const today = new Date();
+
+            if (!name || !birthdate) {
+                alert('Please fill out all fields.');
+                return;
+            }
+
+            let age = today.getFullYear() - birthdate.getFullYear();
+            const m = today.getMonth() - birthdate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthdate.getDate())) {
+                age--;
+            }
+
+            alertBox.classList.remove('alert-success', 'alert-danger');
+            alertBox.classList.add(age >= 18 ? 'alert-success' : 'alert-danger');
+            document.getElementById('name-display').textContent = name;
+            document.getElementById('age-display').textContent = age;
+            alertBox.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
