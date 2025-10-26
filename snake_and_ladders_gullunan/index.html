@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snakes and Ladders (Gullunan, Jemar Brent S.)</title>
+
+    <!-- Load Bootstrap -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+        crossorigin="anonymous"></script>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        crossorigin="anonymous">
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+
+    <!-- Load FontAwesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Load Snake and Ladders Game Functionality -->
+    <script src="scripts/snakes_and_ladders.js" defer></script>
+
+    
+    <style>
+    #boardPlaceholder {
+        background-image: url('images/board.jpg');
+        background-size: cover;
+        position: relative;
+        width: 740px;
+        height: 740px;
+    }
+
+        /* Simple dice shake animation */
+    .roll {
+        animation: diceRoll 1s ease-in-out;
+        transform-origin: center;
+    }
+
+    @keyframes diceRoll {
+        0%   { transform: rotateX(0deg) rotateY(0deg) scale(1); }
+        20%  { transform: rotateX(180deg) rotateY(0deg) scale(1.1); }
+        50%  { transform: rotateX(180deg) rotateY(180deg) scale(1); }
+        70%  { transform: rotateX(360deg) rotateY(180deg) scale(1.1); }
+        100% { transform: rotateX(360deg) rotateY(360deg) scale(1); }
+    }
+   
+        /* Gradient background animation */
+    body {
+        margin: 0;
+        min-height: 100vh;
+        background: linear-gradient(270deg, #1a1a2e, #162447, #1f4068, #e43f5a);
+        background-size: 800% 800%;
+        animation: gradientAnimation 20s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+    }
+
+        /* Gradient for all cards */
+    .card {
+        background: linear-gradient(135deg, #4e54c8, #8f94fb); 
+        color: #fff; 
+        border: none; 
+        border-radius: 10px;
+        box-shadow: 2px 5px 15px rgba(0,0,0,0.2);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 4px 10px 20px rgba(0,0,0,0.3);
+    }
+
+    #rollDiceButton {
+        background: linear-gradient(135deg, #1e90ff, #3cbcff);
+        border: none;
+    }
+
+    #restartButton {
+        background: linear-gradient(135deg, #ff4e50, #f9d423);
+        border: none;
+    }
+
+    #playerForm button {
+        background: linear-gradient(135deg, #28a745, #71dd8a);
+        border: none;
+    }
+
+
+    .winner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    }
+
+    .winner-box {
+        background: linear-gradient(135deg, #4e54c8, #8f94fb);
+        color: #fff;
+        padding: 40px 60px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+        animation: popIn 0.6s ease-in-out;
+    }
+
+    .winner-box h2 {
+        font-weight: bold;
+        font-size: 1.8rem;
+    }
+
+    @keyframes popIn {
+        0% {
+            transform: scale(0.7);
+            opacity: 0;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    </style>
+
+</head>
+<body>
+    <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <i class="fa fa-gamepad" style="font-size: 4rem;"></i>
+                    <span style="font-weight: bold; font-size: 3rem; font-family: 'Times New Roman';">
+                        Snake and Ladders Game by Gullunan, Jemar Brent S.
+                    </span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Board -->
+            <div class="col-md-9">
+                <h1>Board</h1>
+                <div id="boardPlaceholder">
+                    <canvas width="740" height="740"></canvas>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <!-- Dice Roller -->
+                <div class="card mb-3">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Roll the Dice!</h5>
+                        <div id="dicePlaceholder" class="fs-1"></div>
+                        <hr>
+                        <button id="rollDiceButton" class="btn btn-primary w-100 mb-2">Roll Dice</button>
+                        <button id="restartButton" class="btn btn-danger w-100">Restart Game</button>
+                    </div>
+                </div>
+
+                <!-- Add Player -->
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Add Player</h5>
+                        <form id="playerForm">
+                            <input id="playerName" class="form-control mb-2" placeholder="Enter player name" required>
+                            <button type="submit" class="btn btn-success w-100">Add Player</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Player List -->
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Players</h5>
+                        <ul id="playerList" class="list-group"></ul>
+                    </div>
+                </div>
+
+                <!-- 🎉 Winner Overlay -->
+                <div id="winnerOverlay" class="winner-overlay d-none">
+                     <div class="winner-box">
+                        <h2 id="winnerText"></h2>
+                        <button id="closeWinner" class="btn btn-light mt-3">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
