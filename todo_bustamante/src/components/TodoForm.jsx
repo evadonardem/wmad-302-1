@@ -15,17 +15,12 @@ const TodoForm = ({ onAddTodoItem = () => {}, list = [], onToggle = () => {} }) 
   };
 
   return (
-    <Card style={{ backgroundColor: "Ivory" }}>
+    <Card style={{ backgroundColor: "#fffaf0", border: "1px solid #8b0000" }}>
       <Card.Body>
-        {/* --- Tasks Section --- */}
-        <h5 className="mb-3">My tasks for the day</h5>
-        <TodoList list={list} onToggle={onToggle} />
-
-        <hr />
-
-        {/* --- Input Section Below Tasks --- */}
-        <Card.Title>What do you want to do for this day?</Card.Title>
-        <Card.Text>
+        <Card.Title style={{ color: "#8b0000" }}>
+          What do you want to do for this day?
+        </Card.Title>
+        <Card.Text style={{ color: "#5a5a5a" }}>
           Think of something for your personal development, well-being, or skills.
         </Card.Text>
 
@@ -38,11 +33,23 @@ const TodoForm = ({ onAddTodoItem = () => {}, list = [], onToggle = () => {} }) 
                 description: e.target.value,
               })
             }
+            style={{ borderColor: "#8b0000" }}
           />
         </FloatingLabel>
 
         <br />
-        <Button variant="primary" onClick={handleAdd}>
+        <Button
+          variant="light"
+          onClick={handleAdd}
+          style={{
+            backgroundColor: "#8b0000",
+            border: "none",
+            color: "white",
+            fontWeight: "500",
+            borderRadius: "8px",
+            padding: "8px 18px",
+          }}
+        >
           Line this up!
         </Button>
       </Card.Body>
