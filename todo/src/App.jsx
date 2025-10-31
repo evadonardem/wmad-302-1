@@ -1,24 +1,40 @@
-import { Card, Container } from "react-bootstrap"
-import TodoList from "./components/TodoList"
-import TodoForm from "./components/TodoForm"
+import { useState } from 'react';
+import { Card, Container } from "react-bootstrap";
+import TodoForm from "./components/TodoForm";
+import TodoList from "./components/TodoList";
 
 function App() {
-  return (
-    <>
-      <Container style={{ alignItems: "center", display: "flex", height: "100vh" }}>
-        <Card style={{ flex: 1, width: "80%"}}>
-          <Card.Body>
-            <Card.Title>My Tasks for the Day</Card.Title>
-            <hr/>
-            <TodoList />
-            <hr/>
-            <TodoForm />
-          </Card.Body>
-        </Card>
+  const [todos, setTodos] = useState([]);
 
-      </Container>
-    </>
-  )
+
+  const addTodo = (text) => {
+    const newTodo = {
+      id: Date.now(),
+      text,
+      completed: false,
+    };
+    
+    setTodos([...todos, newTodo]); 
+  };
+
+  return (
+    <Container style={{ alignItems: "center", display: "flex", height: "100vh", flexDirection: "column", paddingTop: "50px" }}>
+      <Card style={{ width: "90%", maxWidth: "500px" }}>
+        <Card.Body>
+          <Card.Title className="text-center mb-4">My Tasks for the Day</Card.Title>
+          
+          { }
+          <TodoForm addTodo={addTodo} />
+          
+          <hr />
+
+          { }
+          <TodoList todos={todos} />
+
+        </Card.Body>
+      </Card>
+    </Container>
+  );
 }
 
-export default App
+export default App;
