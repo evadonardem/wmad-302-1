@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snakes and Ladders (Rivera, Bhenny Benlor)</title>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+        integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+        crossorigin="anonymous"></script>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+        crossorigin="anonymous">
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="scripts/snakes_and_ladders.js" defer></script>
+
+     <style>
+        #boardPlaceholder {
+            background-image: url('images/board.jpg');
+            background-size: cover;
+            position: relative;
+            width: 740px;
+            height: 740px;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e0f7ff 0%, #a0c4ff 100%);
+            background-attachment: fixed;
+            background-size: cover;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        #boardPlaceholder {
+            border: 3px solid #3399ff;
+            border-radius: 10px;
+            box-shadow: 0 0 12px rgba(51, 153, 255, 0.5);
+        }
+        #boardPlaceholder canvas {
+            border: 4px solid #343a40;
+            box-shadow: 0 0 15px rgba(51, 153, 255, 0.4);
+            border-radius: 8px;
+        }
+        #dicePlaceholder i {
+            color: #3399ff;
+            transition: transform 0.2s ease;
+        }
+        #dicePlaceholder i:hover {
+            transform: scale(1.1);
+        }
+
+        #rollDiceButton:hover {
+            background-color: #007bff;
+            border-color: #0056b3;
+        }
+
+        #gameStatus {
+            font-size: 0.95em;
+            color: #333;
+        }
+
+        #currentPlayerDisplay {
+            color: #007bff;
+        }
+
+        #playersList span {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.9em;
+        }
+        #playersList span::before {
+            content: "🎲 ";
+            margin-right: 4px;
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: #212529;
+        }
+
+        .navbar-brand i {
+            margin-right: 8px;
+            color: #3399ff;
+        }
+
+        #dicePlaceholder i {
+            color: #007bff;
+            transition: transform 0.2s ease;
+        }
+        #dicePlaceholder i:hover {
+            transform: scale(1.1);
+        }
+
+        #rollDiceButton:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        #gameStatus {
+            font-size: 0.95em;
+            color: #333;
+        }
+
+        #currentPlayerDisplay {
+            color: #007bff;
+        }
+
+        #playersList span {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.9em;
+        }
+        #playersList span::before {
+            content: "🎲 ";
+            margin-right: 4px;
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: #212529;
+        }
+
+        .navbar-brand i {
+            margin-right: 8px;
+            color: #ffc107;
+        }
+        #restartButton:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <i class="fa fa-xl fa-gamepad"></i>
+                Snake and Ladders Game by Rivera, Bhenny Benlor
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-9">
+                <h1>Board</h1>
+                <div id="boardPlaceholder">
+                    <canvas id="gameCanvas" width="740" height="740"></canvas> 
+                    </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title" id="currentPlayerName">Game Status</h5>
+                        <p id="gameStatus">Click 'Roll Dice' to start!</p>
+                        <p>Current Player: <span id="currentPlayerDisplay" class="fw-bold"></span></p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Roll the Dice!</h5>
+                        <div id="dicePlaceholder" class="text-center display-1 my-3">
+                            <i class="fa fa-2xl fa-dice-one"></i>
+                        </div>
+                        <hr>
+                        <button id="rollDiceButton" class="btn btn-primary w-100">Roll Dice</button>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Players</h5>
+                        <div id="playersList">
+                        <button id="restartButton" class="btn btn-danger w-100 mt-3">
+                        <i class="fa fa-rotate-left me-2"></i> Restart Game
+                        </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
+
+
