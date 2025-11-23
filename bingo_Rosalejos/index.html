@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My BINGO Game (Rosalejos, Sean Earl)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"
+        integrity="sha512-nKXmKvJyiGQy343jatQlzDprflyB5c+tKCzGP3Uq67v+lmzfnZUi/ZT+fc6ITZfSC5HhaBKUIvr/nTLCV+7F+Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+        integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <style>
+    body {
+        background-image: url(./images/background.gif);
+        background-size: cover;
+        background-attachment: fixed;
+        font-family: "Press Start 2P", system-ui;
+        color: #e6f0eb;
+    }
+
+    .header {
+        padding-top: 30px;
+        font-size: 100px;
+        color: #eafaf1;
+        text-align: center;
+        text-shadow: 4px 4px 8px #2d4739;
+    }
+
+    .container {
+        background-color: rgba(45, 71, 57, 0.6);
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: 0 0 10px rgba(20, 30, 20, 0.6);
+    }
+
+    .form-control,
+    .card {
+        background-color: rgba(234, 250, 241, 0.15);
+        border: 1px solid rgba(200, 230, 215, 0.4);
+        color: #f4fff8;
+    }
+
+    .card-header {
+        background-color: rgba(101, 163, 123, 0.4);
+        color: #ffffff;
+        font-weight: bold;
+        text-align: center;
+        text-shadow: 1px 1px 2px #1b2b22;
+    }
+
+    .btn-primary {
+        background-color: #94c9b1;
+        border-color: #7fb59a;
+        color: #1b2b22;
+        font-weight: bold;
+    }
+
+    .btn-primary:hover {
+        background-color: #a4e4be;
+        border-color: #7fb59a;
+    }
+
+    .btn-success {
+        background-color: #f2a7b4;
+        border-color: #e58ca3;
+        color: #2b1d1d;
+        font-weight: bold;
+    }
+
+    .btn-success:hover {
+        background-color: #f8bac2;
+        border-color: #e58ca3;
+    }
+
+    .table {
+        border-color: rgba(180, 210, 190, 0.3);
+    }
+
+    .table-primary {
+        background-color: rgba(148, 201, 177, 0.5);
+        color: #0f261a;
+    }
+
+    .table-success {
+        background-color: rgba(242, 167, 180, 0.5);
+        color: #2b1d1d;
+    }
+
+    .bg-danger {
+        background-color: #f48c9a !important;
+        color: #2b1d1d !important;
+    }
+
+    .badge.bg-primary {
+        background-color: #7fb59a !important;
+        color: #0f261a;
+        border: 1px solid rgba(200, 255, 220, 0.5);
+    }
+
+    .bingo-column {
+        background: rgba(45, 71, 57, 0.4);
+        border-radius: 8px;
+        padding: 8px;
+    }
+
+    .bingo-header {
+        font-weight: bold;
+        font-size: 20px;
+        color: #f2a7b4;
+        margin-bottom: 8px;
+        text-shadow: 1px 1px 2px #1b2b22;
+        text-align: center;
+    }
+    </style>
+</head>
+
+<body>
+    <h1 class="header">BINGO GAME</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-floating mt-3 mb-3">
+                    <input type="number" class="form-control" id="numberOfCards">
+                    <label for="numberOfCards">Number of Cards</label>
+                </div>
+                <div id="cardsPlaceholder">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="btn-group form-control mt-3 mb-3" role="group">
+                    <button type="button" class="btn btn-primary" id="roll">Roll</button>
+                    <button type="button" class="btn btn-success" id="draw">Draw</button>
+                </div>
+                <div class="card mb-3">
+                    <div class="card-header">
+                        Drawn Balls
+                    </div>
+                    <div class="card-body">
+                        <div id="drawnBallsPlaceholder"></div>  
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        Lucky Cards
+                    </div>
+                    <div class="card-body">
+                        <div id="luckyCardsPlaceholder">
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/bingo.js"></script>
+</body>
+
+</html>
