@@ -15,12 +15,12 @@ import {
   SidebarProvider,
   SidebarTrigger
 } from './components/ui/sidebar';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Categories from './pages/Categories';
 import Favorites from './pages/Favorites';
+import Preferences from './pages/Preference';
+
 
 const ApplicationSidebarGroup = () => {
   const menuItems = [
@@ -37,7 +37,7 @@ const ApplicationSidebarGroup = () => {
     {
       title: "Favorites",
       icon: Star,
-      url: 'favorites'
+      url: '/favorites'
     },
   ];
 
@@ -45,7 +45,7 @@ const ApplicationSidebarGroup = () => {
     <SidebarGroupLabel>Application</SidebarGroupLabel>
     <SidebarGroupContent>
       <SidebarMenu>
-        {menuItems.map((item) => <SidebarMenuItem>
+        {menuItems.map((item, index) => <SidebarMenuItem key={index}>
             <SidebarMenuButton asChild>
               <a href={item.url}>
                 <item.icon />
@@ -64,6 +64,7 @@ const SettingsSidebarGroup = () => {
     {
       title: "Preferences",
       icon: Settings,
+      url: '/preferences'
     },
   ];
 
@@ -71,9 +72,9 @@ const SettingsSidebarGroup = () => {
     <SidebarGroupLabel>Settings</SidebarGroupLabel>
     <SidebarGroupContent>
       <SidebarMenu>
-        {menuItems.map((item) => <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive>
-              <a href='#'>
+        {menuItems.map((item, index) => <SidebarMenuItem key={index}>
+            <SidebarMenuButton asChild>
+              <a href={item.url}>
                 <item.icon />
                 <span>{item.title}</span>
               </a>
@@ -86,33 +87,6 @@ const SettingsSidebarGroup = () => {
 };
 
 function App() {
-  const [triviaQuestions, setTriviaQuestions] = useState([]);
-  const [isLoadingTriviaQuestions, setIsLoadingTriviaQuestions] = useState(true); 
-
-  const fetchTriviaQuestions = async (numberOfQuestions = 10, type = 'multiple', difficulty = null, category = null) => {
-    const endpoint = `https://opentdb.com/api.php?amount=${numberOfQuestions}&type=${type}`;
-    const requestParams = `${difficulty ? `&diffulty=${difficulty}` : ''}${category ? `&category=${category}` : ''}`;
-    const result = await axios.get(`${endpoint}${requestParams}`);
-    
-    // checking the status header is successful
-    if (result.status === 200) {
-      // fetching and mapping received data
-      const { data } = result;
-      const { results: questions } = data;
-      setTriviaQuestions(questions);
-      setIsLoadingTriviaQuestions(false);
-    }
-  };
-
-
-  useEffect(() => {
-    
-    (async () => {
-      fetchTriviaQuestions(50);
-    })();
-
-  }, []);
-
   return (
     <BrowserRouter>
       <SidebarProvider>
@@ -145,33 +119,8 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/favorites" element={<Favorites />} />
+            <Route path="/preferences" element={<Preferences />} />
           </Routes>
-
-
-          {/* {isLoadingTriviaQuestions && <Spinner />}
-
-          {
-            !isLoadingTriviaQuestions && triviaQuestions.map((item) => {
-              const { question, category, difficulty, correct_answer, incorrect_answers } = item;
-              const options = [...incorrect_answers, correct_answer];
-              
-              
-              return <>
-                <div dangerouslySetInnerHTML={{ __html: question }}></div>
-                <p>{category}</p>
-                <p>{difficulty}</p>
-
-                {options.map((option, index)=> <>
-                  <p>Option {index + 1}:</p>
-                  <div dangerouslySetInnerHTML={{ __html: option }}></div>
-                </>)}
-
-                <Separator />
-              </>;
-            })
-          } */}
-
-
         </main>
 
       </SidebarProvider>
