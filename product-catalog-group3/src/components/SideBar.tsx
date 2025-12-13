@@ -12,43 +12,26 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
+import { Checkbox, FormControl, FormControlLabel, FormLabel, Menu, MenuItem, Radio, RadioGroup, Typography } from '@mui/material';
+import { FilterAlt, LocalOffer, Settings, SwapVert, ThumbUp,  } from '@mui/icons-material';
+import { useState} from "react";
+import Order from './Order'
 
-export default function TemporaryDrawer() {
-  const [open, setOpen] = React.useState(false);
+function SideBar (){
+  const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
 
-  const DrawerList = (
-    <Box sx={{ width: 300 }} role="presentation" onClick={toggleDrawer(false)}>
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
+  const [selectedValue, setSelectedValue] = useState(0);
+  
+  const handleChange = () => {
+    setSelectedValue(selectedValue+ 1);
+    alert(selectedValue);
+  };
+
+  const label = { slotProps: { input: { 'aria-label': 'Checkbox demo' } } };
 
   return (
     <>
@@ -61,27 +44,89 @@ export default function TemporaryDrawer() {
             >
             <MenuIcon onClick={toggleDrawer(true)} />
         </IconButton>
- 
-      <Drawer open={open} onClose={toggleDrawer(false)}>
-        {DrawerList}
+    
+      <Drawer open={open}  onClose={toggleDrawer(false)}>
+        <Box sx={{color: 'text.primary'}}>
+          <Typography
+            fontWeight={'bold'} 
+            variant="h6"
+            noWrap
+            component="div"
+            justifyContent="center"
+            sx={{ display: 'flex', mt : 1, fontSize: 20}}>
+              Group 3
+          </Typography>
+          <Typography
+            fontWeight={'bold'} 
+            variant="h6"
+            noWrap
+            component="div"
+            justifyContent="center"
+            sx={{ display: 'flex', fontSize: 30}}>
+              Product Catalog
+          </Typography>
+
+        <Divider />
+
+        </Box>
+        <Box sx={{ width: 300, mt : 1}} role="presentation" >
+          <List>
+          <ListItem sx={{bgcolor: 'warning.main'}} >
+              <ListItemIcon>
+                  <FilterAlt />
+              </ListItemIcon>
+              <ListItemText primary={'Search Filter'}/>
+          </ListItem>
+
+          <Divider />
+
+          <ListItem  sx={{ mt: 1 }}>
+              <ListItemIcon>
+                  <ThumbUp />
+              </ListItemIcon>
+              <ListItemText primary={'Sort Rating'} />
+          </ListItem>
+          <Order name = 'Highest' view = 'sb'/>
+
+          <ListItem  sx={{ mt: 1 }}>
+              <ListItemIcon>
+                  <SwapVert />
+              </ListItemIcon>
+              <ListItemText primary={'Sort Price'} />
+          </ListItem>
+          <Order name = 'Ascending'  view = 'sb'/>
+          <Order name = 'Descending'  view = 'sb'/>
+
+
+          <ListItem disablePadding sx={{ mt: 1 }}>
+            <ListItemButton>
+              <ListItemIcon>
+                  <LocalOffer />
+              </ListItemIcon>
+              <ListItemText primary={'Huge Sale'} />
+            </ListItemButton>
+          </ListItem>
+      </List>
+
+      <Divider />
+
+      <List sx={{ mt: 1 }}>
+        {['Messages', 'Settings'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <MailIcon /> : <Settings />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+        </Box>
       </Drawer>
     </>
   );
 }
 
-// import { Button, Drawer } from "@mui/material"
-
-// function Sidebar {
-//     return(
-//     <>
-//         <Button onClick={toggleDrawer(true)}>Open drawer</Button>
-//         <Drawer open={open} onClose={toggleDrawer(false)}>
-//         {DrawerList}
-//         </Drawer>
-//     </>
-//     );
-
-// }
-
-// export default Sidebar
+export default SideBar
 
