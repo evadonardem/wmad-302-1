@@ -1,5 +1,6 @@
 export const PRODUCTS_ENDPOINT = 'https://dummyjson.com/products';
 
+//The filters
 export const PRODUCTS_RATING_DESC = 'https://dummyjson.com/products?sortBy=rating&order=desc';
 
 export const PRODUCTS_PRICE_ASC = 'https://dummyjson.com/products?sortBy=price&order=asc';

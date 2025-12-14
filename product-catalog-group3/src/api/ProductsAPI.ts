@@ -23,6 +23,8 @@ const SeachProducts = async ({
 }) => {
     const paginationParams = `&limit=${perPage}&skip=${(page - 1) * perPage}`;
 
+    //Manually uncomment and comment to change search filter...
+
     //Rating
     // const response = await axios.get(`https://dummyjson.com/products/search?q=${searchKey}&sortBy=rating&order=desc${paginationParams}`);
 
